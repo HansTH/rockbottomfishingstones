@@ -38,6 +38,7 @@
     "emailjs-com": "^2.3.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-router-dom": "^5.0.0",
     "react-scroll-to-element": "^0.2.0",
     "react-scrollspy": "^3.4.0",
     "styled-components": "^4.2.0"
