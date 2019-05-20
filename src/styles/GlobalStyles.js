@@ -26,11 +26,12 @@ export const GlobalStyle = createGlobalStyle`
   body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     line-height: 1.4;
+    background-color: ${ThemeColors.white};
     -webkit-font-smoothing: antialiased;
-    background-color: ${ThemeColors.white}
+    -moz-osx-font-smoothing: grayscale;
   };
 
-  a {
+  a, a:link, a:visited {
     text-decoration: none;
   };
 
