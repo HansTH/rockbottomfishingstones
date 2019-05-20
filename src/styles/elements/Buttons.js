@@ -42,7 +42,7 @@ export const NavLinkButton = styled(NavLink)`
 	border: none;
 	font-size: 1rem;
 	text-align: center;
-	background-color: ${ThemeColors.black};
+	background-color: ${({ color }) => color};
 	outline: none;
 
 	:hover {

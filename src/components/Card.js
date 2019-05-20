@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { H3, P, ThemeColors, NavLinkButton } from '../styles/elements';
+import { H3, P, ThemeColors } from '../styles/elements';
 import { maxWidth } from '../styles/utils';
 
-export default function Card({ image, title, description }) {
+export default function Card({ image, title, description, children }) {
 	return (
 		<CardContainer>
 			<Cardimage src={image} />
@@ -13,11 +13,7 @@ export default function Card({ image, title, description }) {
 				</H3>
 				<P>{description}</P>
 			</CardContent>
-			<dir style={{ padding: '0.5rem' }}>
-				<NavLinkButton to='/order' block='true'>
-					Bestellen
-				</NavLinkButton>
-			</dir>
+			<dir style={{ padding: '0.5rem' }}>{children}</dir>
 		</CardContainer>
 	);
 }
