@@ -6,30 +6,40 @@ export class Modal extends Component {
   render() {
     return (
       <ModalContainer isOpen={this.props.isModalOpen}>
-        <div className='ModalHeader'>
+        <ModalHeader>
           {this.props.response.status === 200 ? (
-            <h1>Email is verzonden</h1>
+            <h3>Email is verzonden</h3>
           ) : (
             <div>
-              <h1>Email niet verzonden</h1>
+              <h3>Email niet verzonden</h3>
               <p>{this.props.response.text}</p>
             </div>
           )}
-        </div>
+        </ModalHeader>
       </ModalContainer>
     );
   }
 }
 
 const ModalContainer = styled.div`
-  position: absolute;
+  position: fixed;
+  width: 200px;
+  height: 100px;
+  top: 50%;
+  left: calc(50% - 100px);
   display: ${props => (props.isOpen ? 'flex' : 'none')};
   justify-content: center;
   align-items: center;
-  padding: 2rem;
-  background-color: ${ThemeColors.green};
+  padding: 1rem;
+  background-color: ${ThemeColors.black};
+  opacity: 0.9;
   color: #eee;
   border-radius: 5px;
   z-index: 200;
-  margin: 10% 25%;
+  /* margin: auto; */
+  /* transform: translateX(20%); */
+`;
+
+const ModalHeader = styled.div`
+  text-align: center;
 `;
