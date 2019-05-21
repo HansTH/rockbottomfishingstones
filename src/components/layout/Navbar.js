@@ -45,7 +45,7 @@ export default class Navbar extends Component {
         <NavbarWrapper>
           <NavbarBrand>
             <NavbarLogo src={navbarLogo} alt='logo' />
-            <Scroll type='id' element='showcase' offset={-100}>
+            <Scroll type='id' element='showcase'>
               <NavbarTitle hasScrolled={this.state.hasScrolled}>
                 rockbottom<span>fishingstones</span>.com
               </NavbarTitle>
@@ -57,7 +57,7 @@ export default class Navbar extends Component {
               currentClassName='isActive'>
               <li>
                 <Scroll type='id' element='about'>
-                  <RegularButton to='#/about'>Wat we doen</RegularButton>
+                  <RegularButton to='/'>Wat we doen</RegularButton>
                 </Scroll>
               </li>
               <li>
@@ -72,7 +72,7 @@ export default class Navbar extends Component {
               </li>
               <li>
                 <Scroll type='id' element='contact'>
-                  <RegularButton to='#/contact'>Contact</RegularButton>
+                  <RegularButton to='/'>Contact</RegularButton>
                 </Scroll>
               </li>
               <li>
