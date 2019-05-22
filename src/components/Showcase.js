@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import circleArrowDown from '../assets/circleArrow-down.png';
 import { H1, ThemeColors } from '../styles/elements';
 import { maxWidth } from '../styles/utils';
-import showcaseBGImage from '../assets/showcase_BG-image.jpg';
+import showcaseBGImage from '../assets/showcaseBGImage.jpg';
 
 const Showcase = () => {
 	return (
