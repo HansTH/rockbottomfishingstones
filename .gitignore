@@ -4,7 +4,7 @@
 /.pnp
 .pnp.js
 package-lock.json
-keys*.js
+keys_dev.js
 
 # testing
 /coverage
