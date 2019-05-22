@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-const { userID, templateID, serviceID } = require('../config/keys');
 import * as emailjs from 'emailjs-com';
 import styled from 'styled-components';
 import { Modal } from './modal/Modal';
@@ -65,7 +64,12 @@ export default class Contact extends Component {
 		};
 
 		emailjs
-			.send(serviceID, templateID, template_params, userID)
+			.send(
+				process.env.SERVICE_ID,
+				process.env.TEMPLATED_ID,
+				template_params,
+				process.env.USER_ID
+			)
 			.then(
 				response => {
 					console.log('SUCCESS!', response.status, response.text, response);
