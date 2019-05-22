@@ -4,13 +4,11 @@ import styled from 'styled-components';
 import circleArrowDown from '../assets/circleArrow-down.png';
 import { H1, ThemeColors } from '../styles/elements';
 import { maxWidth } from '../styles/utils';
+import showcaseBGImage from '../assets/showcase_BG-image.jpg';
 
 const Showcase = () => {
 	return (
-		<ShowcaseContainer
-			image={require('../assets/showcase_BG-image.jpg')}
-			id='showcase'
-		>
+		<ShowcaseContainer id='showcase'>
 			<Overlay />
 			<ShowcaseContent>
 				<ShowcaseTitle>De nieuwe Steentijd...</ShowcaseTitle>
@@ -26,7 +24,7 @@ export default Showcase;
 const ShowcaseContainer = styled.div`
 	position: relative;
 	top: 0;
-	background-image: url(${({ image }) => image});
+	background-image: url(${showcaseBGImage});
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center;
