@@ -1,14 +1,16 @@
 import React from 'react';
 import Scroll from './global/Scroll';
 import styled from 'styled-components';
-import bgImage from '../assets/showcase_BG-image.jpg';
 import circleArrowDown from '../assets/circleArrow-down.png';
 import { H1, ThemeColors } from '../styles/elements';
 import { maxWidth } from '../styles/utils';
 
 const Showcase = () => {
 	return (
-		<ShowcaseContainer image={bgImage} id='showcase'>
+		<ShowcaseContainer
+			image={require('../assets/showcase_BG-image.jpg')}
+			id='showcase'
+		>
 			<Overlay />
 			<ShowcaseContent>
 				<ShowcaseTitle>De nieuwe Steentijd...</ShowcaseTitle>
