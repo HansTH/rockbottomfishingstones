@@ -36,6 +36,7 @@
   "dependencies": {
     "@babel/runtime": "^7.4.4",
     "emailjs-com": "^2.3.2",
+    "json-make-html-email": "^1.0.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.0",
