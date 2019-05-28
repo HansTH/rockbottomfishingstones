@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { ThemeColors } from '../../styles/elements';
+import { fixed } from '../../styles/utils';
 
 export class Modal extends Component {
   render() {
@@ -22,11 +23,10 @@ export class Modal extends Component {
 }
 
 const ModalContainer = styled.div`
-  position: fixed;
+  ${fixed({ y: '50%' })};
+  left: calc(50% - 100px);
   width: 200px;
   height: 100px;
-  top: 50%;
-  left: calc(50% - 100px);
   display: ${props => (props.isOpen ? 'flex' : 'none')};
   justify-content: center;
   align-items: center;
@@ -36,8 +36,6 @@ const ModalContainer = styled.div`
   color: #eee;
   border-radius: 5px;
   z-index: 200;
-  /* margin: auto; */
-  /* transform: translateX(20%); */
 `;
 
 const ModalHeader = styled.div`

@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
+import { fixed } from '../../styles/utils';
 
-export default function Backdrop() {
-  return <Backdrop isOpen={props.isOpen} onClick={props.toogleOpen} />;
+export default function Overlay() {
+  return <Overlay isOpen={props.isOpen} onClick={props.toogleOpen} />;
 }
 
-const Backdrop = styled.div`
-  position: fixed;
-  top: 0;
+const Overlay = styled.div`
+  ${fixed()};
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);

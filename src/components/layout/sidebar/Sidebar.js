@@ -8,7 +8,7 @@ import {
   RegularButton,
   NavLinkButton
 } from '../../../styles/elements';
-import { minWidth, maxWidth } from '../../../styles/utils';
+import { minWidth, maxWidth, fixed } from '../../../styles/utils';
 
 export default function Sidebar(props) {
   const { sidebarClose, show } = props;
@@ -52,12 +52,10 @@ export default function Sidebar(props) {
 }
 
 const SidebarContainer = styled.div`
-  position: fixed;
+  ${fixed({ x: '-10px', y: '60px' })};
   height: 100%;
   max-width: 400px;
   width: 50%;
-  top: 60px;
-  left: -10px;
   z-index: 300;
   box-shadow: ${ShadowColor};
   transform: translateX(-100%);
