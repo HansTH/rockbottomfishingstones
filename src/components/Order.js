@@ -1,53 +1,130 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import Layout from './layout/Layout';
-import { ThemeColors } from '../styles/elements';
+import OrderForm from './OrderForm';
+import { ThemeColors, GlobalContainer } from '../styles/elements';
 import { maxWidth } from '../styles/utils';
+import Stones from './products/Stones';
+import TopStones from './products/TopStones';
+import PluginWartel from './products/PluginWartel';
+import LeaderLink from './products/LeaderLink';
 
 export default class Order extends Component {
+  state = {
+    orderlist: []
+  };
+
+  handleOrder = item => {
+    this.setState({ orderlist: [...this.state.orderlist, item] }, () => {
+      console.log('Order component', this.state.orderlist);
+    });
+  };
+
+  addToOrderlist = order => {
+    const alreadyInOrderlist = this.state.orderlist.findIndex(
+      item => item.id === order.id
+    );
+    let updateOrder = {};
+    if (alreadyInOrderlist === -1) {
+      updateOrder = this.state.orderlist.concat({
+        ...order,
+        quantity: 1,
+        totalItemPrice: order.price
+      });
+      this.setState({ orderlist: updateOrder }, () => {
+        console.log(this.state.orderlist);
+      });
+    } else {
+      updateOrder = [...this.state.orderlist];
+      updateOrder[alreadyInOrderlist].quantity += 1;
+      updateOrder[alreadyInOrderlist].totalItemPrice +=
+        updateOrder[alreadyInOrderlist].price;
+      this.setState({ orderlist: updateOrder }, () => {
+        console.log('Order component', this.state.orderlist);
+      });
+    }
+  };
+
+  deleteOrder = id => {
+    const filterOrderlist = this.state.orderlist.filter(
+      order => order.id !== id
+    );
+    this.setState({ orderlist: filterOrderlist });
+  };
+
+  addQuantity = id => {
+    const alreadyInOrderlist = this.state.orderlist.findIndex(
+      item => item.id === id
+    );
+    let updateOrder = [...this.state.orderlist];
+    updateOrder[alreadyInOrderlist].quantity += 1;
+    updateOrder[alreadyInOrderlist].totalItemPrice +=
+      updateOrder[alreadyInOrderlist].price;
+    this.setState({ orderlist: updateOrder }, () => {
+      console.log('Order component', this.state.orderlist);
+    });
+  };
+
+  subtractQuantity = id => {
+    const alreadyInOrderlist = this.state.orderlist.findIndex(
+      item => item.id === id
+    );
+    let updateOrder = [...this.state.orderlist];
+    if (updateOrder[alreadyInOrderlist].quantity > 1) {
+      updateOrder[alreadyInOrderlist].quantity -= 1;
+      updateOrder[alreadyInOrderlist].totalItemPrice -=
+        updateOrder[alreadyInOrderlist].price;
+      this.setState({ orderlist: updateOrder }, () => {
+        console.log('Order component', this.state.orderlist);
+      });
+    } else {
+      this.deleteOrder(id);
+    }
+  };
+
+  resetOrderlist = () => {
+    this.setState({
+      orderlist: []
+    });
+  };
+
   render() {
     return (
-      <OrderContainer>
-        <Layout>
+      <Layout>
+        <OrderContainer>
           <OrderWrapper>
-            <OrderTitle color={ThemeColors.white} size={2}>
-              Binnenkort kunt u onze producten bestellen.
-            </OrderTitle>
-            <OrderTitle color={ThemeColors.black} size={1.5}>
-              Kunt u niet wachten, neem dan contact met ons op.
-            </OrderTitle>
+            <Stones item={this.addToOrderlist} />
+            <TopStones item={this.addToOrderlist} />
+            <PluginWartel item={this.addToOrderlist} />
+            <LeaderLink item={this.addToOrderlist} />
           </OrderWrapper>
-        </Layout>
-      </OrderContainer>
+          <OrderForm
+            orderlist={this.state.orderlist}
+            handleDeleteOrder={this.deleteOrder}
+            handleAddQuantity={this.addQuantity}
+            handleSubtractQuantity={this.subtractQuantity}
+            handleResetOrderlist={this.resetOrderlist}
+          />
+        </OrderContainer>
+      </Layout>
     );
   }
 }
 
 const OrderContainer = styled.div`
-  position: absolute;
+  /* position: relative; */
+  background-color: ${ThemeColors.white};
 `;
 
 const OrderWrapper = styled.div`
-  background-color: ${ThemeColors.green};
   margin-top: 80px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100vw;
-  height: 80vh;
 
-  ${maxWidth.small`
+  /* ${maxWidth.small`
 		text-align: center;
-  `}
-`;
-
-const OrderTitle = styled.h1`
-  margin: 2rem 0;
-  font-size: ${({ size }) => `${size}rem`};
-  color: ${({ color }) => color};
-
-  ${maxWidth.small`
-		font-size: ${({ size }) => `${size / 1.2}rem`};
-  `}
+  `} */
 `;
