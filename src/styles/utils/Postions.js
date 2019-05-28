@@ -1,7 +1,23 @@
 import { css } from 'styled-components';
 
-export const PostionFixed = css`
+export const fixed = ({
+  x = 0,
+  y = 0,
+  xPos = 'left',
+  yPos = 'top'
+} = {}) => css`
   position: fixed;
-  top: ${({ top }) => top + 'px'};
-  left: 0;
+  ${yPos}: ${y};
+  ${xPos}: ${x};
+`;
+
+export const absolute = ({
+  x = 0,
+  y = 0,
+  xPos = 'left',
+  yPos = 'top'
+} = {}) => css`
+  position: absolute;
+  ${yPos}: ${y};
+  ${xPos}: ${x};
 `;

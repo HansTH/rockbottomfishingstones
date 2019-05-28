@@ -20,10 +20,18 @@ export const H2 = styled(H1)`
 
 export const H3 = styled(H1)`
   font-size: 1.5rem;
+
+  ${maxWidth.small`
+    font-size: 1.1rem
+  `}
 `;
 
 export const P = styled.p`
   color: ${({ color }) => color};
   padding: 0.75rem 0;
   line-height: 1.4;
+
+  ${maxWidth.small`
+    font-size: 1rem
+  `}
 `;

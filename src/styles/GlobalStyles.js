@@ -4,14 +4,16 @@ import { ThemeColors } from '../styles/elements';
 
 export const GlobalStyle = createGlobalStyle`
 
-  * {
-    box-sizing: border-box;
+  *, *:before, *:after {
+    box-sizing: inherit;
     margin: 0;
     padding: 0;
   };
 
   html{
-    /* scroll-behavior: smooth; */
+    box-sizing: border-box;
+
+
     font-size: 16px;
 
     ${maxWidth.small`

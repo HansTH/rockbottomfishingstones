@@ -2,7 +2,7 @@ import { css } from 'styled-components';
 
 const size = {
   small: 568,
-  medium: 769,
+  medium: 813,
   large: 1140
 };
 

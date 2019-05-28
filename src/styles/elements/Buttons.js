@@ -2,8 +2,9 @@ import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 import { ThemeColors } from './ThemeColors';
 
-export const RegularButton = styled(NavLink)`
+export const RegularButton = styled.a`
   display: ${({ block }) => (block ? 'block' : 'inline-block')};
+  font-weight: ${({ bold }) => (bold ? '900' : '400')};
   color: ${ThemeColors.white};
   border-radius: 5px;
   padding: 0.75rem;
