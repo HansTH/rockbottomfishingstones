@@ -18,7 +18,7 @@ export default class LeaderLink extends Component {
   render() {
     return (
       <GlobalContainer>
-        <LeaderLinkContainer>
+        <LeaderLinkContainer id='leaderLink'>
           <H1 centerText>
             <span>Leader Link</span>
           </H1>
@@ -50,7 +50,7 @@ export default class LeaderLink extends Component {
 
 const LeaderLinkContainer = styled.section`
   background-color: ${ThemeColors.white};
-  padding-top: 2rem;
+  padding-top: 5rem;
   padding-bottom: 1rem;
   margin: 0 auto;
 

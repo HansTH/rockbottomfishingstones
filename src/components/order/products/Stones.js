@@ -18,7 +18,7 @@ export default class Stones extends Component {
   render() {
     return (
       <GlobalContainer>
-        <StonesContainer>
+        <StonesContainer id='stones'>
           <H1 centerText>
             <span>Stenen</span>
           </H1>
@@ -52,7 +52,7 @@ export default class Stones extends Component {
 const StonesContainer = styled.section`
   position: relative;
   background-color: ${ThemeColors.white};
-  padding-top: 2rem;
+  padding-top: 5rem;
   padding-bottom: 1rem;
 
   span {

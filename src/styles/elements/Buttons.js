@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 import { ThemeColors } from './ThemeColors';
+import { maxWidth } from '../utils';
 
 export const RegularButton = styled.a`
   display: ${({ block }) => (block ? 'block' : 'inline-block')};
@@ -17,6 +18,11 @@ export const RegularButton = styled.a`
   :hover {
     background-color: ${ThemeColors.green};
   }
+
+  ${maxWidth.small`
+    font-size: 0.75rem;
+    text-align: left;
+  `}
 `;
 
 export const PrimaryButton = styled(RegularButton)`

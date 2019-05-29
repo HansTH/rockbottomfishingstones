@@ -299,7 +299,7 @@ export default class OrderForm extends Component {
 
 const OrderContainer = styled.div`
   background-color: ${ThemeColors.green};
-  padding: 5rem 0;
+  padding: 5.5rem 0;
 
   ${maxWidth.small`
     padding: 3rem 0;

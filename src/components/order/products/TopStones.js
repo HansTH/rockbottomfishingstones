@@ -18,7 +18,7 @@ export default class TopStones extends Component {
   render() {
     return (
       <GlobalContainer>
-        <TopStonesContainer>
+        <TopStonesContainer id='topstones'>
           <H1 centerText>
             <span>Topsteentjes</span>
           </H1>
@@ -51,7 +51,7 @@ export default class TopStones extends Component {
 const TopStonesContainer = styled.section`
   position: relative;
   background-color: ${ThemeColors.white};
-  padding-top: 2rem;
+  padding-top: 5rem;
   padding-bottom: 1rem;
 
   span {

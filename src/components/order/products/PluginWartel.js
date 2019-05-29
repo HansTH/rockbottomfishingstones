@@ -18,7 +18,7 @@ export default class PlugInWartel extends Component {
   render() {
     return (
       <GlobalContainer>
-        <PluginWartelContainer>
+        <PluginWartelContainer id='pluginWartel'>
           <H1 centerText>
             <span>Plug-in Wartels</span>
           </H1>
@@ -49,7 +49,7 @@ export default class PlugInWartel extends Component {
 const PluginWartelContainer = styled.section`
   position: relative;
   background-color: ${ThemeColors.white};
-  padding-top: 2rem;
+  padding-top: 5rem;
   padding-bottom: 1rem;
 
   span {
