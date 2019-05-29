@@ -8,38 +8,38 @@ const TerserPlugin = require('terser-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = merge(common, {
-	mode: 'production',
-	output: {
-		filename: 'build[contentHash].js',
-		path: path.resolve(__dirname, 'build')
-	},
-	module: {
-		rules: [
-			{
-				test: /\.css$/,
-				use: [MiniCssExtractPlugin.loader, 'css-loader']
-			}
-		]
-	},
-	plugins: [
-		new CleanWebpackPlugin(),
-		new MiniCssExtractPlugin({
-			filename: '[name].[contentHash].css'
-		})
-	],
-	optimization: {
-		minimizer: [
-			new OptimizeCssAssetsPlugin(),
-			new TerserPlugin(),
-			new HtmlWebpackPlugin({
-				template: './index.html',
-				favicon: './src/assets/favicon.png',
-				minify: {
-					removeComments: true,
-					removeAttributeQuotes: true,
-					collapseWhitespace: true
-				}
-			})
-		]
-	}
+  mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
+  output: {
+    filename: 'build[contentHash].js',
+    path: path.resolve(__dirname, 'build')
+  },
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: [MiniCssExtractPlugin.loader, 'css-loader']
+      }
+    ]
+  },
+  plugins: [
+    new CleanWebpackPlugin(),
+    new MiniCssExtractPlugin({
+      filename: '[name].[contentHash].css'
+    })
+  ],
+  optimization: {
+    minimizer: [
+      new OptimizeCssAssetsPlugin(),
+      new TerserPlugin(),
+      new HtmlWebpackPlugin({
+        template: './index.html',
+        favicon: './src/assets/favicon.png',
+        minify: {
+          removeComments: true,
+          removeAttributeQuotes: true,
+          collapseWhitespace: true
+        }
+      })
+    ]
+  }
 });
