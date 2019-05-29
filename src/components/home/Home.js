@@ -8,7 +8,7 @@ import Contact from './Contact';
 
 const Home = () => {
   return (
-    <Layout>
+    <Layout navBarFixed={false}>
       <Showcase />
       <About />
       <Product />

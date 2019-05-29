@@ -90,7 +90,7 @@ export default class Order extends Component {
 
   render() {
     return (
-      <Layout>
+      <Layout navBarFixed={true}>
         <OrderContainer>
           <OrderWrapper>
             <Stones item={this.addToOrderlist} />

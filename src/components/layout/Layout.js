@@ -8,7 +8,8 @@ import Sidebar from './sidebar/Sidebar';
 
 export default class Layout extends Component {
   state = {
-    sideBarOpen: false
+    sideBarOpen: false,
+    navBarFixed: this.props.navBarFixed
   };
 
   handleToggleSidebarOpen = () => {
@@ -22,13 +23,13 @@ export default class Layout extends Component {
   };
 
   render() {
-    const { sideBarOpen } = this.state;
+    const { sideBarOpen, navBarFixed } = this.state;
     return (
       <LayoutContainer>
         <Navbar
-          showNavbar={this.state.showNavbar}
           toogleSidebarOpen={this.handleToggleSidebarOpen}
           sideBarOpen={sideBarOpen}
+          navBarFixed={navBarFixed}
         />
         <ChildrenContainer>{this.props.children}</ChildrenContainer>
         <Footer />
