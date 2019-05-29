@@ -11,39 +11,31 @@ import {
 import { minWidth, maxWidth, fixed } from '../../../styles/utils';
 
 export default function Sidebar(props) {
-  const { sidebarClose, show } = props;
+  const { sidebarClose, show, navLinks, navBarFixed } = props;
 
   return (
     <SidebarContainer show={show}>
       <SidebarNavlinks>
         <Scrollspy
           items={['about', 'product', 'who', 'contact']}
-          currentClassName='isActive'
-          offset={-100}>
+          currentClassName='isActive'>
+          {navLinks.map((navLink, index) => (
+            <li key={index} onClick={sidebarClose}>
+              <Scroll type='id' element={navLink.id} offset={1}>
+                <RegularButton to='/'>{navLink.title}</RegularButton>
+              </Scroll>
+            </li>
+          ))}
           <li onClick={sidebarClose}>
-            <Scroll type='id' element='about'>
-              <RegularButton to='#/about'>Wat we doen</RegularButton>
-            </Scroll>
-          </li>
-          <li onClick={sidebarClose}>
-            <Scroll type='id' element='product'>
-              <RegularButton to='/'>Product</RegularButton>
-            </Scroll>
-          </li>
-          <li onClick={sidebarClose}>
-            <Scroll type='id' element='who'>
-              <RegularButton to='/'>Wie we zijn</RegularButton>
-            </Scroll>
-          </li>
-          <li onClick={sidebarClose}>
-            <Scroll type='id' element='contact'>
-              <RegularButton to='/'>Contact</RegularButton>
-            </Scroll>
-          </li>
-          <li onClick={sidebarClose}>
-            <NavLinkButton activeClassName='isActive' to='/order'>
-              Bestellen
-            </NavLinkButton>
+            {!navBarFixed ? (
+              <NavLinkButton activeClassName='isActiv' to='/order'>
+                Bestellen
+              </NavLinkButton>
+            ) : (
+              <NavLinkButton activeClassName='isActiv' to='/'>
+                Terug
+              </NavLinkButton>
+            )}
           </li>
         </Scrollspy>
       </SidebarNavlinks>
@@ -54,8 +46,7 @@ export default function Sidebar(props) {
 const SidebarContainer = styled.div`
   ${fixed({ x: '-10px', y: '60px' })};
   height: 100%;
-  max-width: 400px;
-  width: 50%;
+  width: 40%;
   z-index: 300;
   box-shadow: ${ShadowColor};
   transform: translateX(-100%);
@@ -75,7 +66,7 @@ const SidebarContainer = styled.div`
   `}
 
 ${maxWidth.small`
-    width: 50%;
+    width: 55%;
   `}
 `;
 
@@ -83,7 +74,7 @@ const SidebarNavlinks = styled.ul`
   padding: 1rem;
 
   li {
-    padding: 1rem 0;
+    padding: 0.25rem 0;
   }
 
   a {

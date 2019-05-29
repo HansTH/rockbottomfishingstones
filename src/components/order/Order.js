@@ -90,7 +90,7 @@ export default class Order extends Component {
 
   render() {
     return (
-      <Layout navBarFixed={true}>
+      <Layout navBarFixed={true} navLinks={navLinks}>
         <OrderContainer>
           <OrderWrapper>
             <Stones item={this.addToOrderlist} />
@@ -128,3 +128,11 @@ const OrderWrapper = styled.div`
 		text-align: center;
   `} */
 `;
+
+const navLinks = [
+  { title: 'Stenen', id: 'stones' },
+  { title: 'Topsteentjes', id: 'topstones' },
+  { title: 'Plugin Wartels', id: 'pluginWartel' },
+  { title: 'Leader Link', id: 'leaderLink' },
+  { title: 'Bestelling', id: 'order' }
+];

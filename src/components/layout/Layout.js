@@ -30,11 +30,17 @@ export default class Layout extends Component {
           toogleSidebarOpen={this.handleToggleSidebarOpen}
           sideBarOpen={sideBarOpen}
           navBarFixed={navBarFixed}
+          navLinks={this.props.navLinks}
         />
         <ChildrenContainer>{this.props.children}</ChildrenContainer>
         <Footer />
         <Overlay sidebarClose={this.handleSidebarClose} show={sideBarOpen} />
-        <Sidebar sidebarClose={this.handleSidebarClose} show={sideBarOpen} />
+        <Sidebar
+          sidebarClose={this.handleSidebarClose}
+          show={sideBarOpen}
+          navBarFixed={navBarFixed}
+          navLinks={this.props.navLinks}
+        />
       </LayoutContainer>
     );
   }

@@ -40,7 +40,7 @@ export default class Navbar extends Component {
   };
 
   render() {
-    const { toogleSidebarOpen } = this.props;
+    const { toogleSidebarOpen, navLinks } = this.props;
     const { hasScrolled, navBarFixed } = this.state;
     return (
       <NavbarContainer
@@ -58,32 +58,25 @@ export default class Navbar extends Component {
           </NavbarBrand>
           <NavbarLinks>
             <Scrollspy
-              items={['about', 'product', 'who', 'contact']}
+              items={navLinks.map(link => link.id)}
               currentClassName='isActive'>
+              {navLinks.map((navLink, index) => (
+                <li key={index}>
+                  <Scroll type='id' element={navLink.id} offset={1}>
+                    <RegularButton to='/'>{navLink.title}</RegularButton>
+                  </Scroll>
+                </li>
+              ))}
               <li>
-                <Scroll type='id' element='about'>
-                  <RegularButton to='/'>Wat we doen</RegularButton>
-                </Scroll>
-              </li>
-              <li>
-                <Scroll type='id' element='product'>
-                  <RegularButton to='/'>Product</RegularButton>
-                </Scroll>
-              </li>
-              <li>
-                <Scroll type='id' element='who'>
-                  <RegularButton to='/'>Wie we zijn</RegularButton>
-                </Scroll>
-              </li>
-              <li>
-                <Scroll type='id' element='contact' offset={1}>
-                  <RegularButton to='/#contact'>Contact</RegularButton>
-                </Scroll>
-              </li>
-              <li>
-                <NavLinkButton activeClassName='isActive' to='/order'>
-                  Bestellen
-                </NavLinkButton>
+                {!navBarFixed ? (
+                  <NavLinkButton activeClassName='isActiv' to='/order'>
+                    Bestellen
+                  </NavLinkButton>
+                ) : (
+                  <NavLinkButton activeClassName='isActiv' to='/'>
+                    Terug
+                  </NavLinkButton>
+                )}
               </li>
             </Scrollspy>
           </NavbarLinks>
