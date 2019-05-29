@@ -5,13 +5,13 @@ import {
   H1,
   ThemeColors,
   NavLinkButton
-} from '../styles/elements';
-import { maxWidth } from '../styles/utils';
-import Card from './Card';
-const RBFS_stones = require('../assets/RBFS-Stones.jpg');
-const RBFS_topstones = require('../assets/RBFS-Topstones.jpg');
-const RBFS_leaderlink = require('../assets/RBFS-LeaderLink.jpg');
-const RBFS_pluginwartel = require('../assets/RBFS-PlugInWartel.jpg');
+} from '../../styles/elements';
+import { maxWidth } from '../../styles/utils';
+import Card from '../global/Card';
+const RBFS_stones = require('../../assets/RBFS-Stones.jpg');
+const RBFS_topstones = require('../../assets/RBFS-Topstones.jpg');
+const RBFS_leaderlink = require('../../assets/RBFS-LeaderLink.jpg');
+const RBFS_pluginwartel = require('../../assets/RBFS-PlugInWartel.jpg');
 
 export default function Product() {
   return (

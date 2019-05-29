@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { H3, P, ThemeColors } from '../styles/elements';
-import { maxWidth } from '../styles/utils';
+import { H3, P, ThemeColors } from '../../styles/elements';
+import { maxWidth } from '../../styles/utils';
 
 export default function Card({ image, title, description, children }) {
   return (
