@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import Layout from './layout/Layout';
+import Layout from '../layout/Layout';
 import OrderForm from './OrderForm';
-import { ThemeColors, GlobalContainer } from '../styles/elements';
-import { maxWidth } from '../styles/utils';
+import { ThemeColors } from '../../styles/elements';
+import { maxWidth } from '../../styles/utils';
 import Stones from './products/Stones';
 import TopStones from './products/TopStones';
 import PluginWartel from './products/PluginWartel';

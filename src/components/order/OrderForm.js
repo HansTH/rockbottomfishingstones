@@ -3,7 +3,7 @@ import jsonMakeHTML from 'json-make-html-email';
 // const { userID, templateID, serviceID } = require('../config/keys');
 import * as emailjs from 'emailjs-com';
 import styled from 'styled-components';
-import { Modal } from './modal/Modal';
+import { Modal } from '../modal/Modal';
 
 import {
   H1,
@@ -13,9 +13,9 @@ import {
   ShadowColor,
   Direction,
   Gab
-} from '../styles/elements';
-import { maxWidth } from '../styles/utils';
-import TextInputField from './global/TextInputField';
+} from '../../styles/elements';
+import { maxWidth } from '../../styles/utils';
+import TextInputField from '../global/TextInputField';
 import OrderList from './OrderList';
 
 export default class OrderForm extends Component {

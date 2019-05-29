@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import Card from '../Card';
+import Card from '../../Card';
 import {
   ThemeColors,
   DarkButton,
   GlobalContainer,
   H1,
   H3
-} from '../../styles/elements';
-import { maxWidth } from '../../styles/utils';
+} from '../../../styles/elements';
+import { maxWidth } from '../../../styles/utils';
 
 export default class PlugInWartel extends Component {
   handleOrder = item => {

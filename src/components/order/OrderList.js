@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ThemeColors } from '../styles/elements';
-import { maxWidth } from '../styles/utils';
-import minusButton from '../assets/minus-button.png';
-import plusButton from '../assets/plus-button.png';
-import trashButton from '../assets/trash-button.png';
+import { ThemeColors } from '../../styles/elements';
+import { maxWidth } from '../../styles/utils';
+import minusButton from '../../assets/minus-button.png';
+import plusButton from '../../assets/plus-button.png';
+import trashButton from '../../assets/trash-button.png';
 
 export default function OrderList({
   orders,
@@ -75,7 +75,7 @@ export default function OrderList({
             </td>
 
             <td style={{ textAlign: 'center' }}>
-              <h3>€{order.totalItemPrice}</h3>
+              <h3>€{order.totalItemPrice.toFixed(2)}</h3>
             </td>
 
             <td style={{ textAlign: 'center' }}>

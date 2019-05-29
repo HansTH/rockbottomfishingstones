@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import { GlobalStyle } from '../styles/GlobalStyles';
-import Order from './Order';
+import Order from './order/Order';
 import Home from './Home';
 
 class App extends Component {
