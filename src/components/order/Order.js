@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import Layout from '../layout/Layout';
 import OrderForm from './OrderForm';
-import { ThemeColors } from '../../styles/elements';
-import { maxWidth } from '../../styles/utils';
+import { P, ThemeColors, GlobalContainer } from '../../styles/elements';
+import { maxWidth, absolute } from '../../styles/utils';
 import Stones from './products/Stones';
 import TopStones from './products/TopStones';
 import PluginWartel from './products/PluginWartel';
@@ -92,6 +92,28 @@ export default class Order extends Component {
     return (
       <Layout navBarFixed={true} navLinks={navLinks}>
         <OrderContainer>
+          <OrderInfo>
+            <GlobalContainer>
+              <P>
+                Rockbottom fishingstones is een nieuwe onderneming die meer
+                idealistisch ingesteld is dan commercieel. We blijven verder
+                ontwikkelen om zo duurzaam en milieuvriendelijk onze producten
+                aan te bieden. We proberen daarbij onze prijzen zo laag mogelijk
+                te houden.
+              </P>
+              <P>
+                Bestellen kan eenvoudig door het bestelformulier in te vullen en
+                het bedrag over te maken. Vervolgens gaan wij aan het werk en
+                proberen dat u binnen een week onze producten aan de waterkant
+                kunt gebruiken.
+              </P>
+              <P>
+                Wij schuwen geen kritiek. Hebt u iets aan te merken of tips en
+                ideeën ter verbetering, geef het ons door op
+                info@rockbottomfishingstones.com.
+              </P>
+            </GlobalContainer>
+          </OrderInfo>
           <OrderWrapper>
             <Stones item={this.addToOrderlist} />
             <TopStones item={this.addToOrderlist} />
@@ -112,12 +134,17 @@ export default class Order extends Component {
 }
 
 const OrderContainer = styled.div`
-  /* position: relative; */
   background-color: ${ThemeColors.white};
 `;
 
+const OrderInfo = styled.div`
+  margin-top: 75px;
+  background-color: ${ThemeColors.green};
+  padding: 4rem 0;
+  text-align: center;
+`;
+
 const OrderWrapper = styled.div`
-  margin-top: 80px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -131,7 +158,7 @@ const OrderWrapper = styled.div`
 
 const navLinks = [
   { title: 'Stenen', id: 'stones' },
-  { title: 'Topsteentjes', id: 'topstones' },
+  { title: 'Top Steentjes', id: 'topstones' },
   { title: 'Plugin Wartels', id: 'pluginWartel' },
   { title: 'Leader Link', id: 'leaderLink' },
   { title: 'Bestelling', id: 'order' }

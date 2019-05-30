@@ -257,6 +257,7 @@ export default class OrderForm extends Component {
                   isRequired={true}
                   value={this.state.streetnumber}
                   onChange={this.handleChange}
+                  width='25%'
                 />
               </Direction>
               <Direction direction='row' alignItems='flex-end'>
