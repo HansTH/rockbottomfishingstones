@@ -33,6 +33,7 @@ export default class LeaderLink extends Component {
                 title={stone.title}
                 description={stone.info}>
                 <DarkButton
+                  centerText={true}
                   bold={true}
                   block='true'
                   color={ThemeColors.black}

@@ -33,7 +33,8 @@ export default class TopStones extends Component {
                 title={stone.title}
                 description={stone.info}>
                 <DarkButton
-                  bold
+                  centerText={true}
+                  bold={true}
                   block='true'
                   color={ThemeColors.black}
                   onClick={() => this.handleOrder(stone)}>

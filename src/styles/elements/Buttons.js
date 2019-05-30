@@ -11,7 +11,7 @@ export const RegularButton = styled.a`
   padding: 0.75rem;
   border: none;
   font-size: 1rem;
-  text-align: center;
+  text-align: ${({ centerText }) => (centerText ? 'center' : 'left')};
   background-color: transparent;
   outline: none;
 
@@ -20,8 +20,8 @@ export const RegularButton = styled.a`
   }
 
   ${maxWidth.small`
-    font-size: 0.75rem;
-    text-align: left;
+    // font-size: 0.75rem;
+    // text-align: left;
   `}
 `;
 
@@ -45,7 +45,7 @@ export const NavLinkButton = styled(NavLink)`
   display: ${({ block }) => (block ? 'block' : 'inline-block')};
   color: ${ThemeColors.white};
   border-radius: 5px;
-  padding: 0.75rem;
+  padding: 0.5rem;
   border: none;
   font-size: 1rem;
   text-align: center;
