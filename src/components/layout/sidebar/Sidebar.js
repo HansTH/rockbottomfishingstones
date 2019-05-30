@@ -22,7 +22,9 @@ export default function Sidebar(props) {
           {navLinks.map((navLink, index) => (
             <li key={index} onClick={sidebarClose}>
               <Scroll type='id' element={navLink.id} offset={1}>
-                <RegularButton to='/'>{navLink.title}</RegularButton>
+                <RegularButton centerText to='/'>
+                  {navLink.title}
+                </RegularButton>
               </Scroll>
             </li>
           ))}

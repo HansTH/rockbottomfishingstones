@@ -7,9 +7,10 @@ import {
   ThemeColors,
   NavLinkButton
 } from '../../styles/elements';
-import { maxWidth, fixed } from '../../styles/utils';
+import { maxWidth, fixed, absolute } from '../../styles/utils';
 import navbarLogo from '../../assets/navbar-logo.png';
 import MenubarButton from './sidebar/MenubarButtons';
+import { HomeIcon, ShoppingIcon } from '../../assets/svg';
 
 export default class Navbar extends Component {
   state = {
@@ -63,18 +64,20 @@ export default class Navbar extends Component {
               {navLinks.map((navLink, index) => (
                 <li key={index}>
                   <Scroll type='id' element={navLink.id} offset={1}>
-                    <RegularButton to='/'>{navLink.title}</RegularButton>
+                    <RegularButton centerText to='/'>
+                      {navLink.title}
+                    </RegularButton>
                   </Scroll>
                 </li>
               ))}
               <li>
                 {!navBarFixed ? (
                   <NavLinkButton activeClassName='isActiv' to='/order'>
-                    Bestellen
+                    <ShoppingIcon />
                   </NavLinkButton>
                 ) : (
                   <NavLinkButton activeClassName='isActiv' to='/'>
-                    Terug
+                    <HomeIcon />
                   </NavLinkButton>
                 )}
               </li>
