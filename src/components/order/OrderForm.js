@@ -28,7 +28,8 @@ export default class OrderForm extends Component {
     zipcode: '',
     city: '',
     isModalOpen: false,
-    response: {}
+    response: {},
+    order_list: []
   };
 
   handleCloseModale = () => {
@@ -89,6 +90,20 @@ export default class OrderForm extends Component {
     return (number < 10 ? '0' : '') + number;
   };
 
+  getOrderlistInfo = order => {
+    let filteredOrder = [];
+    order.map(item => {
+      let newOrder = {
+        id: item.id,
+        title: item.title,
+        quantity: item.quantity,
+        totalItemPrice: item.totalItemPrice
+      };
+      return (filteredOrder = [...filteredOrder, newOrder]);
+    });
+    return filteredOrder;
+  };
+
   generateOrdernumber = () => {
     const time = new Date();
     const year = time.getFullYear();
@@ -101,8 +116,8 @@ export default class OrderForm extends Component {
     return orderNumber;
   };
 
-  jsonToHTML = json => {
-    // const html = jsonMakeHTML.make(json,args, function(html){});
+  convertJsonToHTML = json => {
+    // const html = jsonMakeHTML.make(json, args, function(html){});
 
     const totalPrice = json
       .reduce((price, item) => price + item.totalItemPrice, 0)
@@ -155,12 +170,15 @@ export default class OrderForm extends Component {
   handleSubmit = e => {
     e.preventDefault();
 
+    const orderlist = this.getOrderlistInfo(this.props.orderlist);
+    const htmlMessage = this.convertJsonToHTML(orderlist);
+
     const template_params = {
       reply_to: this.state.email,
       from_name: this.state.name,
       from_email: this.state.email,
       to_name: 'rockbottomfishingstones.com',
-      message_html: this.jsonToHTML(this.props.orderlist)
+      message_html: htmlMessage
     };
 
     emailjs
