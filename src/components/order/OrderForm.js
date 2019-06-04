@@ -17,6 +17,8 @@ import {
 import { maxWidth } from '../../styles/utils';
 import TextInputField from '../global/TextInputField';
 import OrderList from './OrderList';
+import { Consumer } from '../../contextAPI/context';
+import { RESET_ORDERLIST } from '../../contextAPI/types';
 
 export default class OrderForm extends Component {
   state = {
@@ -28,15 +30,14 @@ export default class OrderForm extends Component {
     zipcode: '',
     city: '',
     isModalOpen: false,
-    response: {},
-    order_list: []
+    response: {}
   };
 
-  handleCloseModale = () => {
+  handleCloseModale = dispatch => {
     this.timeout = window.setTimeout(() => {
       this.handleOpenModal();
       if (this.state.response.status === 200) {
-        this.handleResetOrderlist();
+        this.handleResetOrderlist(dispatch);
       }
     }, 3000);
   };
@@ -57,24 +58,13 @@ export default class OrderForm extends Component {
     }));
   };
 
-  handleDeleteOrder = id => {
-    this.props.handleDeleteOrder(id);
-  };
-
-  handleAddQuantity = id => {
-    this.props.handleAddQuantity(id);
-  };
-
-  handleSubtractQuantity = id => {
-    this.props.handleSubtractQuantity(id);
-  };
-
   handleTotalOrderPrice = orderlist => {
     this.props.handleTotalOrderPrice(orderlist);
   };
 
-  handleResetOrderlist = () => {
-    this.props.handleResetOrderlist();
+  handleResetOrderlist = dispatch => {
+    dispatch({ type: RESET_ORDERLIST, payload: [] });
+    // this.props.handleResetOrderlist();
     this.setState({
       name: '',
       email: '',
@@ -170,7 +160,7 @@ export default class OrderForm extends Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    const orderlist = this.getOrderlistInfo(this.props.orderlist);
+    const orderlist = this.getOrderlistInfo(this.props.value.orderlist);
     const htmlMessage = this.convertJsonToHTML(orderlist);
 
     const template_params = {
@@ -194,13 +184,13 @@ export default class OrderForm extends Component {
           console.log('SUCCESS!', response.status, response.text, response);
           this.setState({ response });
           this.handleOpenModal();
-          this.handleCloseModale();
+          this.handleCloseModale(this.props.value.dispatch);
         },
         err => {
           console.log('FAILED...', err);
           this.setState({ response: err });
           this.handleOpenModal();
-          this.handleCloseModale();
+          this.handleCloseModale(this.props.value.dispatch);
         }
       )
       .then(this.stopTimeout());
@@ -208,110 +198,111 @@ export default class OrderForm extends Component {
 
   render() {
     return (
-      <OrderContainer id='order'>
-        <GlobalContainer>
-          <H1 centerText={true} color={ThemeColors.white}>
-            Bestelling
-          </H1>
-          <OrderGroup>
-            <Modal
-              isModalOpen={this.state.isModalOpen}
-              response={this.state.response}
-            />
-            <FormGroup onSubmit={this.handleSubmit} autocomplete='off'>
-              {Object.keys(this.props.orderlist).length !== 0 ? (
-                <OrderList
-                  orders={this.props.orderlist}
-                  deleteOrder={this.handleDeleteOrder}
-                  addQuantity={this.handleAddQuantity}
-                  subtractQuantity={this.handleSubtractQuantity}
-                />
-              ) : (
-                <p>Uw orderlijst is leeg</p>
-              )}
-              <TextInputField
-                label='Naam'
-                type='text'
-                name='name'
-                placeholder='* Uw naam'
-                isRequired={true}
-                value={this.state.name}
-                onChange={this.handleChange}
-              />
-              <TextInputField
-                label='Email'
-                type='email'
-                name='email'
-                placeholder='* Uw email'
-                isRequired={true}
-                value={this.state.email}
-                onChange={this.handleChange}
-              />
-              <TextInputField
-                label='Telefoon'
-                type='tel'
-                name='mobile'
-                placeholder='* Uw telefoon nummer'
-                isRequired={true}
-                value={this.state.mobile}
-                onChange={this.handleChange}
-              />
-              <Direction direction='row' alignItems='flex-end'>
-                <TextInputField
-                  label='Verzend adres'
-                  type='text'
-                  name='streetname'
-                  placeholder='* Uw straatnaam'
-                  isRequired={true}
-                  value={this.state.streetname}
-                  onChange={this.handleChange}
-                  width='75%'
-                />
-                <Gab width='1rem' />
-                <TextInputField
-                  type='text'
-                  name='streetnumber'
-                  placeholder='* Uw straatnummer'
-                  isRequired={true}
-                  value={this.state.streetnumber}
-                  onChange={this.handleChange}
-                  width='25%'
-                />
-              </Direction>
-              <Direction direction='row' alignItems='flex-end'>
-                <TextInputField
-                  type='text'
-                  name='zipcode'
-                  placeholder='* Uw postcode'
-                  isRequired={true}
-                  value={this.state.zipcode}
-                  onChange={this.handleChange}
-                  width='50%'
-                />
-                <Gab width='1rem' />
-                <TextInputField
-                  type='text'
-                  name='city'
-                  placeholder='* Uw woonplaats'
-                  isRequired={true}
-                  value={this.state.city}
-                  onChange={this.handleChange}
-                  width='50%'
-                />
-              </Direction>
-              <Gab height='1rem' />
-              {Object.keys(this.props.orderlist).length !== 0 ? (
-                <SubmitButton
-                  type='submit'
-                  disabled={!Object.keys(this.props.orderlist).length > 0}>
-                  Verstuur
-                </SubmitButton>
-              ) : null}
-              <P color='#333'>* Verplichte velden</P>
-            </FormGroup>
-          </OrderGroup>
-        </GlobalContainer>
-      </OrderContainer>
+      <Consumer>
+        {value => {
+          return (
+            <OrderContainer id='order'>
+              <GlobalContainer>
+                <H1 centerText={true} color={ThemeColors.white}>
+                  Bestelling
+                </H1>
+                <OrderGroup>
+                  <Modal
+                    isModalOpen={this.state.isModalOpen}
+                    response={this.state.response}
+                  />
+                  <FormGroup onSubmit={this.handleSubmit} autocomplete='off'>
+                    {Object.keys(value.orderlist).length !== 0 ? (
+                      <OrderList />
+                    ) : (
+                      <p>Uw orderlijst is leeg</p>
+                    )}
+                    <TextInputField
+                      label='Naam'
+                      type='text'
+                      name='name'
+                      placeholder='* Uw naam'
+                      isRequired={true}
+                      value={this.state.name}
+                      onChange={this.handleChange}
+                    />
+                    <TextInputField
+                      label='Email'
+                      type='email'
+                      name='email'
+                      placeholder='* Uw email'
+                      isRequired={true}
+                      value={this.state.email}
+                      onChange={this.handleChange}
+                    />
+                    <TextInputField
+                      label='Telefoon'
+                      type='tel'
+                      name='mobile'
+                      placeholder='* Uw telefoon nummer'
+                      isRequired={true}
+                      value={this.state.mobile}
+                      onChange={this.handleChange}
+                    />
+                    <Direction direction='row' alignItems='flex-end'>
+                      <TextInputField
+                        label='Verzend adres'
+                        type='text'
+                        name='streetname'
+                        placeholder='* Uw straatnaam'
+                        isRequired={true}
+                        value={this.state.streetname}
+                        onChange={this.handleChange}
+                        width='75%'
+                      />
+                      <Gab width='1rem' />
+                      <TextInputField
+                        type='text'
+                        name='streetnumber'
+                        placeholder='* Uw straatnummer'
+                        isRequired={true}
+                        value={this.state.streetnumber}
+                        onChange={this.handleChange}
+                        width='25%'
+                      />
+                    </Direction>
+                    <Direction direction='row' alignItems='flex-end'>
+                      <TextInputField
+                        type='text'
+                        name='zipcode'
+                        placeholder='* Uw postcode'
+                        isRequired={true}
+                        value={this.state.zipcode}
+                        onChange={this.handleChange}
+                        width='50%'
+                      />
+                      <Gab width='1rem' />
+                      <TextInputField
+                        type='text'
+                        name='city'
+                        placeholder='* Uw woonplaats'
+                        isRequired={true}
+                        value={this.state.city}
+                        onChange={this.handleChange}
+                        width='50%'
+                      />
+                    </Direction>
+                    <Gab height='1rem' />
+                    {Object.keys(value.orderlist).length !== 0 ? (
+                      <SubmitButton
+                        type='submit'
+                        disabled={!Object.keys(value.orderlist).length > 0}>
+                        Verstuur
+                      </SubmitButton>
+                    ) : null}
+                    <P color='#333'>* Verplichte velden</P>
+                  </FormGroup>
+                </OrderGroup>
+              </GlobalContainer>
+            </OrderContainer>
+          );
+        }}
+      </Consumer>
     );
   }
 }

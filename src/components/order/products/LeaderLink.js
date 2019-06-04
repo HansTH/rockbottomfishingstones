@@ -9,42 +9,54 @@ import {
   H3
 } from '../../../styles/elements';
 import { maxWidth } from '../../../styles/utils';
+import { Consumer } from '../../../contextAPI/context';
+import { ADD_TO_ORDERLIST } from '../../../contextAPI/types';
 
 export default class LeaderLink extends Component {
-  handleOrder = item => {
-    this.props.item(item);
+  addToOrderlist = (order, dispatch) => {
+    dispatch({ type: ADD_TO_ORDERLIST, payload: order }),
+      () => console.log(value.orderlist);
   };
 
   render() {
     return (
-      <GlobalContainer>
-        <LeaderLinkContainer id='leaderLink'>
-          <H1 centerText>
-            <span>Leader Link</span>
-          </H1>
-          <H3 centerText>
-            Om onze stenen mee te bevestigen en worden geleverd per 3 stuks.
-          </H3>
-          <Cards>
-            {stonesData.map(stone => (
-              <Card
-                key={stone.title}
-                image={stone.image}
-                title={stone.title}
-                description={stone.info}>
-                <DarkButton
-                  centerText={true}
-                  bold={true}
-                  block='true'
-                  color={ThemeColors.black}
-                  onClick={() => this.handleOrder(stone)}>
-                  €{stone.price.toFixed(2)}
-                </DarkButton>
-              </Card>
-            ))}
-          </Cards>
-        </LeaderLinkContainer>
-      </GlobalContainer>
+      <Consumer>
+        {value => {
+          return (
+            <GlobalContainer>
+              <LeaderLinkContainer id='leaderLink'>
+                <H1 centerText>
+                  <span>Leader Link</span>
+                </H1>
+                <H3 centerText>
+                  Om onze stenen mee te bevestigen en worden geleverd per 3
+                  stuks.
+                </H3>
+                <Cards>
+                  {value.products.leaderLink.map(stone => (
+                    <Card
+                      key={stone.title}
+                      image={stone.image}
+                      title={stone.title}
+                      description={stone.info}>
+                      <DarkButton
+                        centerText={true}
+                        bold={true}
+                        block='true'
+                        color={ThemeColors.black}
+                        onClick={() =>
+                          this.addToOrderlist(stone, value.dispatch)
+                        }>
+                        €{stone.price.toFixed(2)}
+                      </DarkButton>
+                    </Card>
+                  ))}
+                </Cards>
+              </LeaderLinkContainer>
+            </GlobalContainer>
+          );
+        }}
+      </Consumer>
     );
   }
 }
@@ -70,16 +82,3 @@ const Cards = styled.div`
   justify-content: center;
   align-items: center;
 `;
-
-const stonesData = [
-  {
-    id: 'RBFSleaderlink',
-    image:
-      'https://res.cloudinary.com/dtwdioxca/image/upload/v1558766527/rbfs/RBFS-LeaderLink.jpg',
-    title: 'Leader Link Lengte 10cm',
-    price: 3.0,
-    itemQuantity: 3,
-    info:
-      'Rockbottom stenen zijn op verschillende manieren te bevestigen. Een daarvan is door het verlengen van de leader. Niet iedereen is handig in het splicen van leadermateriaal. Daarom hebben wij het al gedaan. Worden geleverd per 3 stuks.'
-  }
-];

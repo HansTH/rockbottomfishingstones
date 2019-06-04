@@ -5,102 +5,107 @@ import { maxWidth } from '../../styles/utils';
 import minusButton from '../../assets/minus-button.png';
 import plusButton from '../../assets/plus-button.png';
 import trashButton from '../../assets/trash-button.png';
+import { Consumer } from '../../contextAPI/context';
+import {
+  DELETE_ORDER_ITEM,
+  ADD_QUANTITY,
+  SUBTRACT_QUANTITY
+} from '../../contextAPI/types';
 
-export default function OrderList({
-  orders,
-  deleteOrder,
-  addQuantity,
-  subtractQuantity
-}) {
-  const totalOrderPrice = () => {
-    return orders
+export default function OrderList() {
+  const totalOrderPrice = orderslist => {
+    return orderslist
       .reduce((price, item) => price + item.totalItemPrice, 0)
       .toFixed(2);
   };
 
-  const handleDeleteOrder = id => {
-    deleteOrder(id);
+  const deleteOrder = (id, dispatch) => {
+    dispatch({ type: DELETE_ORDER_ITEM, payload: id });
   };
 
-  const handleAddQuantity = id => {
-    addQuantity(id);
+  const addQuantity = (order, dispatch) => {
+    dispatch({ type: ADD_QUANTITY, payload: order });
   };
 
-  const handleSubtractQuantity = id => {
-    subtractQuantity(id);
+  const subtractQuantity = (order, dispatch) => {
+    dispatch({ type: SUBTRACT_QUANTITY, payload: order });
   };
 
   return (
-    <table style={{ borderCollapse: 'collapse' }}>
-      <OrderlistHead>
-        <tr>
-          <td className='orderlist-image' />
-          <td>
-            <h3 style={{ textAlign: 'start' }}>Product</h3>
-          </td>
-          <td>
-            <h3>Aantal</h3>
-          </td>
-          <td>
-            <h3>Prijs</h3>
-          </td>
-          <td />
-        </tr>
-      </OrderlistHead>
-      {orders.map(order => (
-        <OrderlistBody key={order.id}>
-          <tr key={order.id}>
-            <td className='orderlist-image'>
-              <OrderlistImage image={order.image} />
-            </td>
-            <td className='orderlist-info'>
-              <h3>{order.title}</h3>
-              <p>{order.info}</p>
-            </td>
+    <Consumer>
+      {value => {
+        return (
+          <table style={{ borderCollapse: 'collapse' }}>
+            <OrderlistHead>
+              <tr>
+                <td className='orderlist-image' />
+                <td>
+                  <h3 style={{ textAlign: 'start' }}>Product</h3>
+                </td>
+                <td>
+                  <h3>Aantal</h3>
+                </td>
+                <td>
+                  <h3>Prijs</h3>
+                </td>
+                <td />
+              </tr>
+            </OrderlistHead>
+            {value.orderlist.map(order => (
+              <OrderlistBody key={order.id}>
+                <tr key={order.id}>
+                  <td className='orderlist-image'>
+                    <OrderlistImage image={order.image} />
+                  </td>
+                  <td className='orderlist-info'>
+                    <h3>{order.title}</h3>
+                    <p>{order.info}</p>
+                  </td>
 
-            <td style={{ textAlign: 'center' }}>
-              <OrderlistButton
-                type='button'
-                image={minusButton}
-                onClick={() => handleSubtractQuantity(order.id)}
-              />
-              <h3 style={{ margin: 0 }}>
-                {order.quantity * order.itemQuantity}
-              </h3>
-              <OrderlistButton
-                type='button'
-                image={plusButton}
-                onClick={() => handleAddQuantity(order.id)}
-              />
-            </td>
+                  <td style={{ textAlign: 'center' }}>
+                    <OrderlistButton
+                      type='button'
+                      image={minusButton}
+                      onClick={() => subtractQuantity(order, value.dispatch)}
+                    />
+                    <h3 style={{ margin: 0 }}>{order.quantity}</h3>
+                    <OrderlistButton
+                      type='button'
+                      image={plusButton}
+                      onClick={() => addQuantity(order, value.dispatch)}
+                    />
+                  </td>
 
-            <td style={{ textAlign: 'center' }}>
-              <h3>€{order.totalItemPrice.toFixed(2)}</h3>
-            </td>
+                  <td style={{ textAlign: 'center' }}>
+                    <h3>€{order.totalItemPrice.toFixed(2)}</h3>
+                  </td>
 
-            <td style={{ textAlign: 'center' }}>
-              <OrderlistButton
-                type='button'
-                image={trashButton}
-                onClick={() => handleDeleteOrder(order.id)}
-              />
-            </td>
-          </tr>
-        </OrderlistBody>
-      ))}
-      <OrderlistBottomBody>
-        <tr>
-          <td />
-          <td />
-          <td style={{ textAlign: 'center' }}>
-            <h2>Total:</h2>
-          </td>
-          <td style={{ textAlign: 'center' }}>
-            <h2>€{totalOrderPrice()}</h2>
-          </td>
-        </tr>
-      </OrderlistBottomBody>
-    </table>
+                  <td style={{ textAlign: 'center' }}>
+                    <OrderlistButton
+                      type='button'
+                      image={trashButton}
+                      onClick={() => deleteOrder(order.id, value.dispatch)}
+                    />
+                  </td>
+                </tr>
+              </OrderlistBody>
+            ))}
+            <OrderlistBottomBody>
+              <tr>
+                <td />
+                <td />
+                <td style={{ textAlign: 'center' }}>
+                  <h2>Total:</h2>
+                </td>
+                <td style={{ textAlign: 'center' }}>
+                  <h2>€{totalOrderPrice(value.orderlist)}</h2>
+                </td>
+              </tr>
+            </OrderlistBottomBody>
+          </table>
+        );
+      }}
+    </Consumer>
   );
 }
 

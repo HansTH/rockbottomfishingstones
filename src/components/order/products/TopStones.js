@@ -9,42 +9,52 @@ import {
   H3
 } from '../../../styles/elements';
 import { maxWidth } from '../../../styles/utils';
+import { Consumer } from '../../../contextAPI/context';
+import { ADD_TO_ORDERLIST } from '../../../contextAPI/types';
 
 export default class TopStones extends Component {
-  handleOrder = item => {
-    this.props.item(item);
+  addToOrderlist = (order, dispatch) => {
+    dispatch({ type: ADD_TO_ORDERLIST, payload: order });
   };
 
   render() {
     return (
-      <GlobalContainer>
-        <TopStonesContainer id='topstones'>
-          <H1 centerText>
-            <span>Topsteentjes</span>
-          </H1>
-          <H3 centerText>
-            Verkrijgbaar in twee maten en worden geleverd per 3 stuks.
-          </H3>
-          <Cards>
-            {stonesData.map(stone => (
-              <Card
-                key={stone.title}
-                image={stone.image}
-                title={stone.title}
-                description={stone.info}>
-                <DarkButton
-                  centerText={true}
-                  bold={true}
-                  block='true'
-                  color={ThemeColors.black}
-                  onClick={() => this.handleOrder(stone)}>
-                  €{stone.price.toFixed(2)}
-                </DarkButton>
-              </Card>
-            ))}
-          </Cards>
-        </TopStonesContainer>
-      </GlobalContainer>
+      <Consumer>
+        {value => {
+          return (
+            <GlobalContainer>
+              <TopStonesContainer id='topstones'>
+                <H1 centerText>
+                  <span>Topsteentjes</span>
+                </H1>
+                <H3 centerText>
+                  Verkrijgbaar in twee maten en worden geleverd per 3 stuks.
+                </H3>
+                <Cards>
+                  {value.products.topStones.map(stone => (
+                    <Card
+                      key={stone.title}
+                      image={stone.image}
+                      title={stone.title}
+                      description={stone.info}>
+                      <DarkButton
+                        centerText={true}
+                        bold={true}
+                        block='true'
+                        color={ThemeColors.black}
+                        onClick={() =>
+                          this.addToOrderlist(stone, value.dispatch)
+                        }>
+                        €{stone.price.toFixed(2)}
+                      </DarkButton>
+                    </Card>
+                  ))}
+                </Cards>
+              </TopStonesContainer>
+            </GlobalContainer>
+          );
+        }}
+      </Consumer>
     );
   }
 }
@@ -70,26 +80,3 @@ const Cards = styled.div`
   justify-content: center;
   align-items: center;
 `;
-
-const stonesData = [
-  {
-    id: 'RBFStopstone20',
-    image:
-      'https://res.cloudinary.com/dtwdioxca/image/upload/v1558766528/rbfs/RBFS-Topstones-small.jpg',
-    title: 'Klein 20 gram',
-    price: 3.0,
-    itemQuantity: 3,
-    info:
-      'Deze backstones zijn ideaal voor het afzinken van de lijn. Voorzien met eenvoudige clip en zo snel te bevestigen. Worden geleverd per 3 stuks.'
-  },
-  {
-    id: 'RBFStopstone40',
-    image:
-      'https://res.cloudinary.com/dtwdioxca/image/upload/v1558766528/rbfs/RBFS-Topstones-large.jpg',
-    title: 'Groot 40 gram',
-    price: 3.0,
-    itemQuantity: 3,
-    info:
-      'Deze backstones zijn ideaal voor het afzinken van de lijn. Voorzien met eenvoudige clip en zo snel te bevestigen. Worden geleverd per 3 stuks.'
-  }
-];
