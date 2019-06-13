@@ -47,7 +47,7 @@ export default class Layout extends Component {
 }
 
 const LayoutContainer = styled.div`
-  background-color: ${ThemeColors.black};
+  background-color: ${ThemeColors.white};
 `;
 
 const ChildrenContainer = styled.div`
