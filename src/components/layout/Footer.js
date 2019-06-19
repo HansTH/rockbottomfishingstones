@@ -8,8 +8,6 @@ export default function Footer() {
 	return (
 		<FooterContainer id='footer'>
 			<Row>
-				<Link to='/disclaimer'>Disclaimer</Link>
-				<Gab width='8px' /> • <Gab width='8px' />
 				<Link to='/terms'>Algemen Voorwaarden</Link>
 				<Gab width='8px' /> • <Gab width='8px' />
 				<Link to='/info'>Gegevens</Link>
