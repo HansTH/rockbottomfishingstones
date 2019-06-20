@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import jsonMakeHTML from 'json-make-html-email';
 // const { userID, templateID, serviceID } = require('../config/keys');
 import * as emailjs from 'emailjs-com';
@@ -6,13 +7,13 @@ import styled from 'styled-components';
 import { Modal } from '../modal/Modal';
 
 import {
-  H1,
-  P,
-  GlobalContainer,
-  ThemeColors,
-  ShadowColor,
-  Direction,
-  Gab
+	H1,
+	P,
+	GlobalContainer,
+	ThemeColors,
+	ShadowColor,
+	Direction,
+	Gab
 } from '../../styles/elements';
 import { maxWidth } from '../../styles/utils';
 import TextInputField from '../global/TextInputField';
@@ -21,347 +22,385 @@ import { Consumer } from '../../contextAPI/context';
 import { RESET_ORDERLIST } from '../../contextAPI/types';
 
 export default class OrderForm extends Component {
-  state = {
-    name: '',
-    email: '',
-    mobile: '',
-    streetname: '',
-    streetnumber: '',
-    zipcode: '',
-    city: '',
-    isModalOpen: false,
-    response: {}
-  };
+	state = {
+		name: '',
+		email: '',
+		mobile: '',
+		streetname: '',
+		streetnumber: '',
+		zipcode: '',
+		city: '',
+		isModalOpen: false,
+		response: {},
+		terms: false
+	};
 
-  handleCloseModale = dispatch => {
-    this.timeout = window.setTimeout(() => {
-      this.handleOpenModal();
-      if (this.state.response.status === 200) {
-        this.handleResetOrderlist(dispatch);
-      }
-    }, 3000);
-  };
+	handleCloseModale = dispatch => {
+		this.timeout = window.setTimeout(() => {
+			this.handleOpenModal();
+			if (this.state.response.status === 200) {
+				this.handleResetOrderlist(dispatch);
+			}
+		}, 3000);
+	};
 
-  handleChange = e => {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
-  };
+	handleChange = e => {
+		this.setState({
+			[e.target.name]: e.target.value
+		});
+	};
 
-  stopTimeout = () => {
-    window.clearTimeout(this.timeout);
-  };
+	handleCheckbox = e => {
+		this.setState({
+			terms: e.target.checked
+		});
+	};
 
-  handleOpenModal = () => {
-    this.setState(prevState => ({
-      isModalOpen: !prevState.isModalOpen
-    }));
-  };
+	stopTimeout = () => {
+		window.clearTimeout(this.timeout);
+	};
 
-  handleTotalOrderPrice = orderlist => {
-    this.props.handleTotalOrderPrice(orderlist);
-  };
+	handleOpenModal = () => {
+		this.setState(prevState => ({
+			isModalOpen: !prevState.isModalOpen
+		}));
+	};
 
-  handleResetOrderlist = dispatch => {
-    dispatch({ type: RESET_ORDERLIST, payload: [] });
-    // this.props.handleResetOrderlist();
-    this.setState({
-      name: '',
-      email: '',
-      mobile: '',
-      streetname: '',
-      streetnumber: '',
-      zipcode: '',
-      city: ''
-    });
-  };
+	handleTotalOrderPrice = orderlist => {
+		this.props.handleTotalOrderPrice(orderlist);
+	};
 
-  getTwoDigits = number => {
-    return (number < 10 ? '0' : '') + number;
-  };
+	handleResetOrderlist = dispatch => {
+		dispatch({ type: RESET_ORDERLIST, payload: [] });
 
-  getOrderlistInfo = order => {
-    let filteredOrder = [];
-    order.map(item => {
-      let newOrder = {
-        id: item.id,
-        title: item.title,
-        quantity: item.quantity,
-        totalItemPrice: item.totalItemPrice
-      };
-      return (filteredOrder = [...filteredOrder, newOrder]);
-    });
-    return filteredOrder;
-  };
+		this.setState({
+			name: '',
+			email: '',
+			mobile: '',
+			streetname: '',
+			streetnumber: '',
+			zipcode: '',
+			city: '',
+			terms: false
+		});
+	};
 
-  generateOrdernumber = () => {
-    const time = new Date();
-    const year = time.getFullYear();
-    const month = this.getTwoDigits(time.getMonth() + 1);
-    const day = this.getTwoDigits(time.getDate());
-    const hour = this.getTwoDigits(time.getHours());
-    const min = this.getTwoDigits(time.getMinutes());
-    const sec = this.getTwoDigits(time.getSeconds());
-    const orderNumber = `${year}${month}${day}/${hour}${min}${sec}`;
-    return orderNumber;
-  };
+	getTwoDigits = number => {
+		return (number < 10 ? '0' : '') + number;
+	};
 
-  convertJsonToHTML = json => {
-    // const html = jsonMakeHTML.make(json, args, function(html){});
+	getOrderlistInfo = order => {
+		let filteredOrder = [];
+		order.map(item => {
+			let newOrder = {
+				id: item.id,
+				title: item.title,
+				quantity: item.quantity,
+				totalItemPrice: item.totalItemPrice
+			};
+			return (filteredOrder = [...filteredOrder, newOrder]);
+		});
+		return filteredOrder;
+	};
 
-    const totalPrice = json
-      .reduce((price, item) => price + item.totalItemPrice, 0)
-      .toFixed(2);
+	generateOrdernumber = () => {
+		const time = new Date();
+		const year = time.getFullYear();
+		const month = this.getTwoDigits(time.getMonth() + 1);
+		const day = this.getTwoDigits(time.getDate());
+		const hour = this.getTwoDigits(time.getHours());
+		const min = this.getTwoDigits(time.getMinutes());
+		const sec = this.getTwoDigits(time.getSeconds());
+		const orderNumber = `${year}${month}${day}-${hour}${min}${sec}`;
 
-    const sendToAddress = {
-      Naam: this.state.name,
-      Email: this.state.email,
-      Mobiel: this.state.mobile,
-      Straatnaam: this.state.streetname,
-      Huisnummer: this.state.streetnumber,
-      Postcode: this.state.zipcode,
-      Woonplaats: this.state.city
-    };
+		return orderNumber;
+	};
 
-    const orderNumber = { Ordernummer: this.generateOrdernumber() };
+	convertJsonToHTML = json => {
+		// const html = jsonMakeHTML.make(json, args, function(html){});
 
-    const totalOrderPrice = { Totale_Order_prijs: totalPrice };
-    const emailData = [orderNumber, ...json, totalOrderPrice, sendToAddress];
+		const totalPrice = json
+			.reduce((price, item) => price + item.totalItemPrice, 0)
+			.toFixed(2);
 
-    const args = {
-      separator: ': ',
-      iterator: 1,
-      wrapper: {
-        before: '',
-        class: 'jsonhtml',
-        elem: 'ul',
-        after: ''
-      },
-      child: {
-        before: '',
-        class: 'jsonhtml__singlechild',
-        elem: 'li',
-        titleClass: 'jsonhtml__parent',
-        titleElem: 'h3',
-        after: ''
-      },
-      css: {
-        title: 'margin: 9px 0 0;color:#BA584C;',
-        wrapperElem: '',
-        childElem: 'list-style-type:none;',
-        childElemNested: 'margin-left: 18px;'
-      }
-    };
+		const sendToAddress = {
+			Naam: this.state.name,
+			Email: this.state.email,
+			Mobiel: this.state.mobile,
+			Straatnaam: this.state.streetname,
+			Huisnummer: this.state.streetnumber,
+			Postcode: this.state.zipcode,
+			Woonplaats: this.state.city
+		};
 
-    const html = jsonMakeHTML.make(emailData, args);
-    return html;
-  };
+		const orderNumber = { Ordernummer: this.generateOrdernumber() };
 
-  handleSubmit = e => {
-    e.preventDefault();
+		const totalOrderPrice = { Totale_Order_prijs: totalPrice };
+		const emailData = [orderNumber, ...json, totalOrderPrice, sendToAddress];
 
-    const orderlist = this.getOrderlistInfo(this.props.value.orderlist);
-    const htmlMessage = this.convertJsonToHTML(orderlist);
+		const args = {
+			separator: ': ',
+			iterator: 1,
+			wrapper: {
+				before: '',
+				class: 'jsonhtml',
+				elem: 'ul',
+				after: ''
+			},
+			child: {
+				before: '',
+				class: 'jsonhtml__singlechild',
+				elem: 'li',
+				titleClass: 'jsonhtml__parent',
+				titleElem: 'h3',
+				after: ''
+			},
+			css: {
+				title: 'margin: 9px 0 0;color:#BA584C;',
+				wrapperElem: '',
+				childElem: 'list-style-type:none;',
+				childElemNested: 'margin-left: 18px;'
+			}
+		};
 
-    const template_params = {
-      reply_to: this.state.email,
-      from_name: this.state.name,
-      from_email: this.state.email,
-      to_name: 'rockbottomfishingstones.com',
-      message_html: htmlMessage
-    };
+		const html = jsonMakeHTML.make(emailData, args);
+		return html;
+	};
 
-    emailjs
-      .send(
-        'smtp_server',
-        'template_jSlPcQOT',
-        template_params,
-        'user_QinhjRBNylb1qiAlgG7LW'
-      )
-      // .send(serviceID, templateID, template_params, userID)
-      .then(
-        response => {
-          console.log('SUCCESS!', response.status, response.text, response);
-          this.setState({ response });
-          this.handleOpenModal();
-          this.handleCloseModale(this.props.value.dispatch);
-        },
-        err => {
-          console.log('FAILED...', err);
-          this.setState({ response: err });
-          this.handleOpenModal();
-          this.handleCloseModale(this.props.value.dispatch);
-        }
-      )
-      .then(this.stopTimeout());
-  };
+	handleSubmit = e => {
+		e.preventDefault();
 
-  render() {
-    return (
-      <Consumer>
-        {value => {
-          return (
-            <OrderContainer id='order'>
-              <GlobalContainer>
-                <H1 centerText={true} color={ThemeColors.white}>
-                  Bestelling
-                </H1>
-                <OrderGroup>
-                  <Modal
-                    isModalOpen={this.state.isModalOpen}
-                    response={this.state.response}
-                  />
-                  <FormGroup onSubmit={this.handleSubmit} autocomplete='off'>
-                    {Object.keys(value.orderlist).length !== 0 ? (
-                      <OrderList />
-                    ) : (
-                      <p>Uw orderlijst is leeg</p>
-                    )}
-                    <TextInputField
-                      label='Naam'
-                      type='text'
-                      name='name'
-                      placeholder='* Uw naam'
-                      isRequired={true}
-                      value={this.state.name}
-                      onChange={this.handleChange}
-                    />
-                    <TextInputField
-                      label='Email'
-                      type='email'
-                      name='email'
-                      placeholder='* Uw email'
-                      isRequired={true}
-                      value={this.state.email}
-                      onChange={this.handleChange}
-                    />
-                    <TextInputField
-                      label='Telefoon'
-                      type='tel'
-                      name='mobile'
-                      placeholder='* Uw telefoon nummer'
-                      isRequired={true}
-                      value={this.state.mobile}
-                      onChange={this.handleChange}
-                    />
-                    <Direction direction='row' alignItems='flex-end'>
-                      <TextInputField
-                        label='Verzend adres'
-                        type='text'
-                        name='streetname'
-                        placeholder='* Uw straatnaam'
-                        isRequired={true}
-                        value={this.state.streetname}
-                        onChange={this.handleChange}
-                        width='75%'
-                      />
-                      <Gab width='1rem' />
-                      <TextInputField
-                        type='text'
-                        name='streetnumber'
-                        placeholder='* Uw straatnummer'
-                        isRequired={true}
-                        value={this.state.streetnumber}
-                        onChange={this.handleChange}
-                        width='25%'
-                      />
-                    </Direction>
-                    <Direction direction='row' alignItems='flex-end'>
-                      <TextInputField
-                        type='text'
-                        name='zipcode'
-                        placeholder='* Uw postcode'
-                        isRequired={true}
-                        value={this.state.zipcode}
-                        onChange={this.handleChange}
-                        width='50%'
-                      />
-                      <Gab width='1rem' />
-                      <TextInputField
-                        type='text'
-                        name='city'
-                        placeholder='* Uw woonplaats'
-                        isRequired={true}
-                        value={this.state.city}
-                        onChange={this.handleChange}
-                        width='50%'
-                      />
-                    </Direction>
-                    <Gab height='1rem' />
-                    {Object.keys(value.orderlist).length !== 0 ? (
-                      <SubmitButton
-                        type='submit'
-                        disabled={!Object.keys(value.orderlist).length > 0}>
-                        Verstuur
-                      </SubmitButton>
-                    ) : null}
-                    <P color='#333'>* Verplichte velden</P>
-                  </FormGroup>
-                </OrderGroup>
-              </GlobalContainer>
-            </OrderContainer>
-          );
-        }}
-      </Consumer>
-    );
-  }
+		const orderlist = this.getOrderlistInfo(this.props.value.orderlist);
+		const htmlMessage = this.convertJsonToHTML(orderlist);
+
+		const template_params = {
+			reply_to: this.state.email,
+			from_name: this.state.name,
+			from_email: this.state.email,
+			from_orderNumber: this.generateOrdernumber(),
+			to_name: 'rockbottomfishingstones.com',
+			message_html: htmlMessage,
+			checked_terms: this.state.terms
+		};
+
+		emailjs
+			.send(
+				'smtp_server',
+				'orderbestelling_rbfs',
+				template_params,
+				'user_QinhjRBNylb1qiAlgG7LW'
+			)
+			// .send(serviceID, templateID, template_params, userID)
+			.then(
+				response => {
+					console.log('SUCCESS!', response.status, response.text, response);
+					this.setState({ response });
+					this.handleOpenModal();
+					this.handleCloseModale(this.props.value.dispatch);
+				},
+				err => {
+					console.log('FAILED...', err);
+					this.setState({ response: err });
+					this.handleOpenModal();
+					this.handleCloseModale(this.props.value.dispatch);
+				}
+			)
+			.then(this.stopTimeout());
+	};
+
+	render() {
+		return (
+			<Consumer>
+				{value => {
+					return (
+						<OrderContainer id='order'>
+							<GlobalContainer>
+								<H1 centerText={true} color={ThemeColors.white}>
+									Bestelling
+								</H1>
+								<OrderGroup>
+									<Modal
+										isModalOpen={this.state.isModalOpen}
+										response={this.state.response}
+									/>
+									<FormGroup onSubmit={this.handleSubmit} autocomplete='off'>
+										{Object.keys(value.orderlist).length !== 0 ? (
+											<OrderList />
+										) : (
+											<p>Uw orderlijst is leeg</p>
+										)}
+										<TextInputField
+											label='Naam'
+											type='text'
+											name='name'
+											placeholder='* Uw naam'
+											isRequired={true}
+											value={this.state.name}
+											onChange={this.handleChange}
+										/>
+										<TextInputField
+											label='Email'
+											type='email'
+											name='email'
+											placeholder='* Uw email'
+											isRequired={true}
+											value={this.state.email}
+											onChange={this.handleChange}
+										/>
+										<TextInputField
+											label='Telefoon'
+											type='tel'
+											name='mobile'
+											placeholder='* Uw telefoon nummer'
+											isRequired={true}
+											value={this.state.mobile}
+											onChange={this.handleChange}
+										/>
+										<Direction direction='row' alignItems='flex-end'>
+											<TextInputField
+												label='Verzend adres'
+												type='text'
+												name='streetname'
+												placeholder='* Uw straatnaam'
+												isRequired={true}
+												value={this.state.streetname}
+												onChange={this.handleChange}
+												width='75%'
+											/>
+											<Gab width='1rem' />
+											<TextInputField
+												type='text'
+												name='streetnumber'
+												placeholder='* Uw straatnummer'
+												isRequired={true}
+												value={this.state.streetnumber}
+												onChange={this.handleChange}
+												width='25%'
+											/>
+										</Direction>
+										<Direction direction='row' alignItems='flex-end'>
+											<TextInputField
+												type='text'
+												name='zipcode'
+												placeholder='* Uw postcode'
+												isRequired={true}
+												value={this.state.zipcode}
+												onChange={this.handleChange}
+												width='50%'
+											/>
+											<Gab width='1rem' />
+											<TextInputField
+												type='text'
+												name='city'
+												placeholder='* Uw woonplaats'
+												isRequired={true}
+												value={this.state.city}
+												onChange={this.handleChange}
+												width='50%'
+											/>
+										</Direction>
+										<CheckTerms>
+											<p>* U gaat akkoord met de algemene voorwaarden.</p>
+											<Direction direction='row' alignItems='center'>
+												<TextInputField
+													type='checkbox'
+													value='terms'
+													name='terms'
+													isRequired={true}
+													onChange={this.handleCheckbox}
+													checked={this.state.terms}
+												/>
+												<Link to='/terms'>Algemene voorwaarden</Link>
+											</Direction>
+										</CheckTerms>
+										{Object.keys(value.orderlist).length !== 0 ? (
+											<SubmitButton
+												type='submit'
+												disabled={!Object.keys(value.orderlist).length > 0}
+											>
+												Verstuur
+											</SubmitButton>
+										) : null}
+										<P color='#333'>* Verplichte velden</P>
+									</FormGroup>
+								</OrderGroup>
+							</GlobalContainer>
+						</OrderContainer>
+					);
+				}}
+			</Consumer>
+		);
+	}
 }
 
 const OrderContainer = styled.div`
-  background-color: ${ThemeColors.green};
-  padding: 5.5rem 0;
+	background-color: ${ThemeColors.green};
+	padding: 5.5rem 0;
 
-  ${maxWidth.small`
+	${maxWidth.small`
     padding: 3rem 0;
   `}
 `;
 
 const OrderGroup = styled.div`
-  width: 90%;
-  margin: 2rem auto 0 auto;
-  box-shadow: ${ShadowColor};
+	width: 90%;
+	margin: 2rem auto 0 auto;
+	box-shadow: ${ShadowColor};
 `;
 
 const FormGroup = styled.form`
-  width: 100%;
-  border: 1px ${ThemeColors.green} solid;
-  border-radius: 5px;
-  padding: 0 1rem;
-  background-color: ${ThemeColors.white};
+	width: 100%;
+	border: 1px ${ThemeColors.green} solid;
+	border-radius: 5px;
+	padding: 0 1rem;
+	background-color: ${ThemeColors.white};
 `;
 
 const FormItem = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 1rem 0;
+	display: flex;
+	flex-direction: column;
+	margin: 1rem 0;
 
-  label {
-    color: ${ThemeColors.green};
-    font-size: 1.1rem;
-  }
+	label {
+		color: ${ThemeColors.green};
+		font-size: 1.1rem;
+	}
 
-  input,
-  textarea {
-    font-size: 1rem;
-    padding: 0.5rem;
-    border: none;
-    border-radius: 5px;
-    outline: none;
-  }
+	input,
+	textarea {
+		font-size: 1rem;
+		padding: 0.5rem;
+		border: none;
+		border-radius: 5px;
+		outline: none;
+	}
 `;
 
 const SubmitButton = styled.button`
-  background-color: ${ThemeColors.black};
-  color: ${ThemeColors.white};
-  border-radius: 5px;
-  padding: 0.75rem;
-  border: none;
-  font-size: 1rem;
-  text-align: center;
-  outline: none;
-  width: 100%;
+	background-color: ${ThemeColors.black};
+	color: ${ThemeColors.white};
+	border-radius: 5px;
+	padding: 0.75rem;
+	border: none;
+	font-size: 1rem;
+	text-align: center;
+	outline: none;
+	width: 100%;
 
-  :hover {
-    background-color: ${ThemeColors.green};
-  }
+	:hover {
+		background-color: ${ThemeColors.green};
+	}
+`;
+
+const CheckTerms = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	margin: 1rem 0;
+	a {
+		margin-left: 0.5rem;
+	}
+	p {
+		color: ${ThemeColors.green};
+	}
 `;
