@@ -81,6 +81,8 @@ export default class OrderForm extends Component {
 			streetnumber: '',
 			zipcode: '',
 			city: '',
+			isModalOpen: false,
+			response: {},
 			terms: false
 		});
 	};
@@ -89,10 +91,16 @@ export default class OrderForm extends Component {
 		return (number < 10 ? '0' : '') + number;
 	};
 
+	getTotalOrderPrice = json => {
+		return json
+			.reduce((price, item) => price + item.totalItemPrice, 0)
+			.toFixed(2);
+	};
+
 	getOrderlistInfo = order => {
 		let filteredOrder = [];
 		order.map(item => {
-			let newOrder = {
+			const newOrder = {
 				id: item.id,
 				title: item.title,
 				quantity: item.quantity,
@@ -119,23 +127,20 @@ export default class OrderForm extends Component {
 	convertJsonToHTML = json => {
 		// const html = jsonMakeHTML.make(json, args, function(html){});
 
-		const totalPrice = json
-			.reduce((price, item) => price + item.totalItemPrice, 0)
-			.toFixed(2);
-
 		const sendToAddress = {
 			Naam: this.state.name,
-			Email: this.state.email,
-			Mobiel: this.state.mobile,
-			Straatnaam: this.state.streetname,
-			Huisnummer: this.state.streetnumber,
+			Straat: this.state.streetname + ' ' + this.state.streetnumber,
 			Postcode: this.state.zipcode,
-			Woonplaats: this.state.city
+			Woonplaats: this.state.city,
+			Mobiel: this.state.mobile,
+			Email: this.state.email
 		};
 
 		const orderNumber = { Ordernummer: this.generateOrdernumber() };
 
-		const totalOrderPrice = { Totale_Order_prijs: totalPrice };
+		const totalOrderPrice = {
+			Totale_Order_prijs: this.getTotalOrderPrice(json)
+		};
 		const emailData = [orderNumber, ...json, totalOrderPrice, sendToAddress];
 
 		const args = {
@@ -180,7 +185,8 @@ export default class OrderForm extends Component {
 			from_orderNumber: this.generateOrdernumber(),
 			to_name: 'rockbottomfishingstones.com',
 			message_html: htmlMessage,
-			checked_terms: this.state.terms
+			checked_terms: this.state.terms,
+			total_order_price: this.getTotalOrderPrice(orderlist)
 		};
 
 		emailjs
@@ -300,7 +306,6 @@ export default class OrderForm extends Component {
 											/>
 										</Direction>
 										<CheckTerms>
-											<p>* U gaat akkoord met de algemene voorwaarden.</p>
 											<Direction direction='row' alignItems='center'>
 												<TextInputField
 													type='checkbox'
@@ -310,7 +315,12 @@ export default class OrderForm extends Component {
 													onChange={this.handleCheckbox}
 													checked={this.state.terms}
 												/>
-												<Link to='/terms'>Algemene voorwaarden</Link>
+												<p>
+													* U gaat akkoord met de
+													<span>
+														<Link to='/terms'> algemene voorwaarden.</Link>
+													</span>
+												</p>
 											</Direction>
 										</CheckTerms>
 										{Object.keys(value.orderlist).length !== 0 ? (
@@ -397,10 +407,16 @@ const CheckTerms = styled.div`
 	flex-direction: column;
 	align-items: flex-start;
 	margin: 1rem 0;
-	a {
+
+	p {
+		color: ${ThemeColors.black};
 		margin-left: 0.5rem;
 	}
-	p {
+
+	a {
 		color: ${ThemeColors.green};
+		:hover {
+			color: ${ThemeColors.black};
+		}
 	}
 `;
