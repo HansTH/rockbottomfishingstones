@@ -2,6 +2,7 @@ import React from 'react';
 import Layout from '../layout/Layout';
 import styled from 'styled-components';
 import { GlobalContainer, H2, P, ThemeColors } from '../../styles/elements';
+import termsData from './termsData';
 
 export default function AboutInfo() {
 	return (
@@ -9,13 +10,7 @@ export default function AboutInfo() {
 			<Info>
 				<GlobalContainer>
 					<H2 color={ThemeColors.green}>Gegevens</H2>
-					<P>
-						Rockbottom Fishingstones
-						<br />
-						KvK nr: 74407287
-						<br />
-						Btw nr. : NL137920179B01
-					</P>
+					{termsData[1].content}
 					<H2 color={ThemeColors.green}>Disclaimer</H2>
 					<P>
 						Wij doen onze best om alles op onze website zo juist en volledig
@@ -48,7 +43,7 @@ const navLinks = [
 const Info = styled.div`
 	margin-top: 75px;
 
-	span {
-		color: ${ThemeColors.green};
+	li {
+		list-style-type: none;
 	}
 `;
