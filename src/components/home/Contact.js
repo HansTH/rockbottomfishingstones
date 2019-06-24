@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 // const { userID, templateID, serviceID } = require('../../config/keys');
 import * as emailjs from 'emailjs-com';
 import styled from 'styled-components';
-import { Modal } from '../modal/Modal';
+import Modal from '../modal/Modal';
 import TextInputField from '../global/TextInputField';
 import TextAreaField from '../global/TextAreaField';
 
@@ -103,6 +103,7 @@ export default class Contact extends Component {
 						<Modal
 							isModalOpen={this.state.isModalOpen}
 							response={this.state.response}
+							message='Uw bericht is verzonden'
 						/>
 						<FormGroup onSubmit={this.handleSubmit} autocomplete='off'>
 							<TextInputField
@@ -173,26 +174,6 @@ const FormGroup = styled.form`
 	border-radius: 5px;
 	padding: 0 1rem;
 	background-color: ${ThemeColors.white};
-`;
-
-const FormItem = styled.div`
-	display: flex;
-	flex-direction: column;
-	margin: 1rem 0;
-
-	label {
-		color: ${ThemeColors.green};
-		font-size: 1.1rem;
-	}
-
-	input,
-	textarea {
-		font-size: 1rem;
-		padding: 0.5rem;
-		border: none;
-		border-radius: 5px;
-		outline: none;
-	}
 `;
 
 const SubmitButton = styled.button`
