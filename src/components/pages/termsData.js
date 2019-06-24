@@ -1,5 +1,5 @@
 import React from 'react';
-const tableData = [
+const termsData = [
 	{
 		id: 1,
 		header: 'Artikel 1 - Definities',
@@ -88,10 +88,16 @@ const tableData = [
 					<strong>Naam ondernemer: </strong>Marc ter Horst;
 				</li>
 				<li>
-					<strong>Adres: </strong>Houtzaagstraat 12;
+					<strong>Adres: </strong>Zaagmolenweg 5;
 				</li>
 				<li>
-					<strong>Telefoonnummer: </strong> 074 6376653
+					<strong>Postcode: </strong>7491 BS;
+				</li>
+				<li>
+					<strong>Woonplaats: </strong>Delden;
+				</li>
+				<li>
+					<strong>Telefoonnummer: </strong> 06 54395598
 				</li>
 				<li>
 					<strong>E-mailadres: </strong>
@@ -873,4 +879,4 @@ const tableData = [
 	}
 ];
 
-export default tableData;
+export default termsData;
