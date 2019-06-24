@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
 import Layout from '../layout/Layout';
 import styled from 'styled-components';
-import { GlobalContainer, H2, H3, ThemeColors } from '../../styles/elements';
-import tableData from './tableData';
+import {
+	GlobalContainer,
+	H2,
+	H3,
+	ThemeColors,
+	PrimaryButton
+} from '../../styles/elements';
+import termsData from './termsData';
 
 export default class TermsConditions extends Component {
 	state = {
@@ -35,8 +40,14 @@ export default class TermsConditions extends Component {
 					<TermsContainer>
 						<H2 color={ThemeColors.green}>Algemene voorwaarden</H2>
 						<H3 color={ThemeColors.black}>Inhoudsopgave</H3>
+						<PrimaryButton
+							color={ThemeColors.white}
+							onClick={() => this.props.history.go(-1)}
+						>
+							Ga terug
+						</PrimaryButton>
 						<TableContainer>
-							{tableData.map(data => (
+							{termsData.map(data => (
 								<div key={data.id}>
 									<TableHeader
 										isCollapse={data.collapse}
