@@ -4,10 +4,11 @@ import jsonMakeHTML from 'json-make-html-email';
 // const { userID, templateID, serviceID } = require('../config/keys');
 import * as emailjs from 'emailjs-com';
 import styled from 'styled-components';
-import { Modal } from '../modal/Modal';
+import Modal from '../modal/Modal';
 
 import {
 	H1,
+	H3,
 	P,
 	GlobalContainer,
 	ThemeColors,
@@ -40,8 +41,9 @@ export default class OrderForm extends Component {
 			this.handleOpenModal();
 			if (this.state.response.status === 200) {
 				this.handleResetOrderlist(dispatch);
+				this.props.history.push('/');
 			}
-		}, 3000);
+		}, 10000);
 	};
 
 	handleChange = e => {
@@ -86,11 +88,9 @@ export default class OrderForm extends Component {
 			terms: false
 		});
 	};
-
 	getTwoDigits = number => {
 		return (number < 10 ? '0' : '') + number;
 	};
-
 	getTotalOrderPrice = json => {
 		return json
 			.reduce((price, item) => price + item.totalItemPrice, 0)
@@ -101,10 +101,9 @@ export default class OrderForm extends Component {
 		let filteredOrder = [];
 		order.map(item => {
 			const newOrder = {
-				id: item.id,
-				title: item.title,
-				quantity: item.quantity,
-				totalItemPrice: item.totalItemPrice
+				Product: item.title,
+				Aantal: item.quantity,
+				Product_totaal_prijs: `€${item.totalItemPrice.toFixed(2)}`
 			};
 			return (filteredOrder = [...filteredOrder, newOrder]);
 		});
@@ -139,7 +138,7 @@ export default class OrderForm extends Component {
 		const orderNumber = { Ordernummer: this.generateOrdernumber() };
 
 		const totalOrderPrice = {
-			Totale_Order_prijs: this.getTotalOrderPrice(json)
+			Totale_order_prijs: this.getTotalOrderPrice(this.props.value.orderlist)
 		};
 		const emailData = [orderNumber, ...json, totalOrderPrice, sendToAddress];
 
@@ -186,15 +185,17 @@ export default class OrderForm extends Component {
 			to_name: 'rockbottomfishingstones.com',
 			message_html: htmlMessage,
 			checked_terms: this.state.terms,
-			total_order_price: this.getTotalOrderPrice(orderlist)
+			total_order_price: `€${this.getTotalOrderPrice(
+				this.props.value.orderlist
+			)}`
 		};
 
 		emailjs
 			.send(
 				'smtp_server',
-				'orderbestelling_rbfs',
+				'template_umZERoZB',
 				template_params,
-				'user_QinhjRBNylb1qiAlgG7LW'
+				'user_2jMVPgjTFngQjfRiLqUOi'
 			)
 			// .send(serviceID, templateID, template_params, userID)
 			.then(
@@ -228,12 +229,17 @@ export default class OrderForm extends Component {
 									<Modal
 										isModalOpen={this.state.isModalOpen}
 										response={this.state.response}
+										message='Bestelling verzonden'
+										info='We sturen u bevestigings email over de betalings gegevens.'
 									/>
 									<FormGroup onSubmit={this.handleSubmit} autocomplete='off'>
 										{Object.keys(value.orderlist).length !== 0 ? (
 											<OrderList />
 										) : (
-											<p>Uw orderlijst is leeg</p>
+											<H3 centerText>
+												Uw bestellijst is leeg, gebruik de bestel button op een
+												product toe te voegen.
+											</H3>
 										)}
 										<TextInputField
 											label='Naam'
@@ -364,26 +370,6 @@ const FormGroup = styled.form`
 	border-radius: 5px;
 	padding: 0 1rem;
 	background-color: ${ThemeColors.white};
-`;
-
-const FormItem = styled.div`
-	display: flex;
-	flex-direction: column;
-	margin: 1rem 0;
-
-	label {
-		color: ${ThemeColors.green};
-		font-size: 1.1rem;
-	}
-
-	input,
-	textarea {
-		font-size: 1rem;
-		padding: 0.5rem;
-		border: none;
-		border-radius: 5px;
-		outline: none;
-	}
 `;
 
 const SubmitButton = styled.button`
