@@ -138,7 +138,8 @@ export default class OrderForm extends Component {
 		const orderNumber = { Ordernummer: this.generateOrdernumber() };
 
 		const totalOrderPrice = {
-			Totale_order_prijs: this.getTotalOrderPrice(this.props.value.orderlist)
+			Totale_order_prijs:
+				parseFloat(this.getTotalOrderPrice(this.props.value.orderlist)) + 6.95
 		};
 		const emailData = [orderNumber, ...json, totalOrderPrice, sendToAddress];
 
@@ -237,8 +238,7 @@ export default class OrderForm extends Component {
 											<OrderList />
 										) : (
 											<H3 centerText>
-												Uw bestellijst is leeg, gebruik de bestel button op een
-												product toe te voegen.
+												Uw bestellijst is leeg, selecteer een product.
 											</H3>
 										)}
 										<TextInputField
