@@ -5,6 +5,7 @@ import {
 	GlobalContainer,
 	H2,
 	H3,
+	Gab,
 	ThemeColors,
 	PrimaryButton
 } from '../../styles/elements';
@@ -39,19 +40,20 @@ export default class TermsConditions extends Component {
 				<GlobalContainer>
 					<TermsContainer>
 						<H2 color={ThemeColors.green}>Algemene voorwaarden</H2>
-						<H3 color={ThemeColors.black}>Inhoudsopgave</H3>
 						<PrimaryButton
 							color={ThemeColors.white}
 							onClick={() => this.props.history.go(-1)}
 						>
 							Ga terug
 						</PrimaryButton>
+						<Gab height='0.5rem' />
+						<H3 color={ThemeColors.black}>Inhoudsopgave</H3>
 						<TableContainer>
 							{termsData.map(data => (
 								<div key={data.id}>
 									<TableHeader
 										isCollapse={data.collapse}
-										onClick={() => this.collapseTableRow(data.id, tableData)}
+										onClick={() => this.collapseTableRow(data.id, termsData)}
 									>
 										<h4>{data.header}</h4>
 									</TableHeader>
