@@ -7,6 +7,12 @@ import { Provider } from '../contextAPI/context';
 import AboutInfo from './pages/AboutInfo';
 import TermsConditions from './pages/TermsConditions';
 
+// TODO: Verzendkosten
+// TODO: Privary wetgegeving
+// TODO: Retour policy
+// TODO: Gebruiks handleiding.
+// TODO: Betere fotos met afmeting
+
 class App extends Component {
 	render() {
 		return (
