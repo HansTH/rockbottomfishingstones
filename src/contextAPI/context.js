@@ -28,7 +28,7 @@ export class Provider extends Component {
 					id: 'RBFSleaderlink',
 					image:
 						'https://res.cloudinary.com/dtwdioxca/image/upload/v1558766527/rbfs/RBFS-LeaderLink.jpg',
-					title: 'Leader Link, lengte 10cm',
+					title: 'Leader Link',
 					price: 3.0,
 					itemQuantity: 3,
 					info:

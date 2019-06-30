@@ -85,7 +85,7 @@ const termsData = [
 		content: (
 			<ol id='art02'>
 				<li>
-					<strong>Naam ondernemer: </strong>Marc ter Horst;
+					<strong>Naam onderneming: </strong>Rockbottom Fishingstones;
 				</li>
 				<li>
 					<strong>Adres: </strong>Zaagmolenweg 5;
@@ -95,9 +95,6 @@ const termsData = [
 				</li>
 				<li>
 					<strong>Woonplaats: </strong>Delden;
-				</li>
-				<li>
-					<strong>Telefoonnummer: </strong> 06 54395598
 				</li>
 				<li>
 					<strong>E-mailadres: </strong>
