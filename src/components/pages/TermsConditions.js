@@ -40,10 +40,7 @@ export default class TermsConditions extends Component {
 				<GlobalContainer>
 					<TermsContainer>
 						<H2 color={ThemeColors.green}>Algemene voorwaarden</H2>
-						<PrimaryButton
-							color={ThemeColors.white}
-							onClick={() => this.props.history.go(-1)}
-						>
+						<PrimaryButton onClick={() => this.props.history.go(-1)}>
 							Ga terug
 						</PrimaryButton>
 						<Gab height='0.5rem' />
@@ -83,7 +80,6 @@ const TermsContainer = styled.div`
 
 const TableContainer = styled.div`
 	margin: 0 auto;
-	/* max-width: 700px; */
 `;
 
 const TableHeader = styled.div`

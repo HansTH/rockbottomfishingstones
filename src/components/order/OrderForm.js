@@ -138,8 +138,13 @@ export default class OrderForm extends Component {
 		const orderNumber = { Ordernummer: this.generateOrdernumber() };
 
 		const totalOrderPrice = {
-			Totale_order_prijs:
-				parseFloat(this.getTotalOrderPrice(this.props.value.orderlist)) + 6.95
+			Prijs_bestelling: `€ ${this.getTotalOrderPrice(
+				this.props.value.orderlist
+			)}`,
+			Verzendkosten_tot_10kg: '€ 6.95',
+			Totale_order_prijs: `€ ${parseFloat(
+				this.getTotalOrderPrice(this.props.value.orderlist)
+			) + 6.95}`
 		};
 		const emailData = [orderNumber, ...json, totalOrderPrice, sendToAddress];
 

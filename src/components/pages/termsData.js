@@ -85,16 +85,16 @@ const termsData = [
 		content: (
 			<ol id='art02'>
 				<li>
-					<strong>Naam onderneming: </strong>Rockbottom Fishingstones;
+					<strong>Naam onderneming: </strong>Rockbottom Fishingstones
 				</li>
 				<li>
-					<strong>Adres: </strong>Zaagmolenweg 5;
+					<strong>Adres: </strong>Zaagmolenweg 5
 				</li>
 				<li>
-					<strong>Postcode: </strong>7491 BS;
+					<strong>Postcode: </strong>7491 BS
 				</li>
 				<li>
-					<strong>Woonplaats: </strong>Delden;
+					<strong>Woonplaats: </strong>Delden
 				</li>
 				<li>
 					<strong>E-mailadres: </strong>

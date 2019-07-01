@@ -1,14 +1,25 @@
 import React from 'react';
 import Layout from '../layout/Layout';
 import styled from 'styled-components';
-import { GlobalContainer, H2, P, ThemeColors } from '../../styles/elements';
+import {
+	GlobalContainer,
+	H2,
+	P,
+	ThemeColors,
+	PrimaryButton,
+	Gab
+} from '../../styles/elements';
 import termsData from './termsData';
 
-export default function AboutInfo() {
+export default function AboutInfo(props) {
 	return (
 		<Layout navBarFixed={true} navLinks={navLinks}>
 			<Info>
 				<GlobalContainer>
+					<Gab height='1rem' />
+					<PrimaryButton onClick={() => props.history.go(-1)}>
+						Ga terug
+					</PrimaryButton>
 					<H2 color={ThemeColors.green}>Gegevens</H2>
 					{termsData[1].content}
 					<H2 color={ThemeColors.green}>Disclaimer</H2>
