@@ -7,28 +7,24 @@ import { Provider } from '../contextAPI/context';
 import AboutInfo from './pages/AboutInfo';
 import TermsConditions from './pages/TermsConditions';
 
-// TODO: Verzendkosten
+// TODO: Verzendkosten berekenen naar gewicht (<10kg, >10kg)
 // TODO: Privary wetgegeving
 // TODO: Retour policy
-// TODO: Gebruiks handleiding.
+// TODO: Gebruikshandleiding.
 // TODO: Betere fotos met afmeting
 
-class App extends Component {
-	render() {
-		return (
-			<Provider>
-				<Router>
-					<Switch>
-						<Route exact path='/' component={Home} />
-						<Route path='/order' component={Order} />
-						<Route path='/terms' component={TermsConditions} />
-						<Route path='/info' component={AboutInfo} />
-					</Switch>
-					<GlobalStyle />
-				</Router>
-			</Provider>
-		);
-	}
+export default function App() {
+	return (
+		<Provider>
+			<Router>
+				<Switch>
+					<Route exact path='/' component={Home} />
+					<Route path='/order' component={Order} />
+					<Route path='/terms' component={TermsConditions} />
+					<Route path='/info' component={AboutInfo} />
+				</Switch>
+				<GlobalStyle />
+			</Router>
+		</Provider>
+	);
 }
-
-export default App;
