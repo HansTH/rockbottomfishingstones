@@ -11,15 +11,13 @@ import {
 } from '../../styles/elements';
 import termsData from './termsData';
 
-export default function AboutInfo(props) {
+export default function AboutInfo({ history }) {
 	return (
 		<Layout navBarFixed={true} navLinks={navLinks}>
 			<Info>
 				<GlobalContainer>
 					<Gab height='1rem' />
-					<PrimaryButton onClick={() => props.history.go(-1)}>
-						Ga terug
-					</PrimaryButton>
+					<PrimaryButton onClick={() => history.go(-1)}>Ga terug</PrimaryButton>
 					<H2 color={ThemeColors.green}>Gegevens</H2>
 					{termsData[1].content}
 					<H2 color={ThemeColors.green}>Disclaimer</H2>
