@@ -88,9 +88,11 @@ export default class OrderForm extends Component {
 			terms: false
 		});
 	};
+
 	getTwoDigits = number => {
 		return (number < 10 ? '0' : '') + number;
 	};
+
 	getTotalOrderPrice = json => {
 		return json
 			.reduce((price, item) => price + item.totalItemPrice, 0)
@@ -128,7 +130,7 @@ export default class OrderForm extends Component {
 
 		const sendToAddress = {
 			Naam: this.state.name,
-			Straat: this.state.streetname + ' ' + this.state.streetnumber,
+			Straat: `${this.state.streetname} ${this.state.streetnumber}`,
 			Postcode: this.state.zipcode,
 			Woonplaats: this.state.city,
 			Mobiel: this.state.mobile,
@@ -141,10 +143,10 @@ export default class OrderForm extends Component {
 			Prijs_bestelling: `€ ${this.getTotalOrderPrice(
 				this.props.value.orderlist
 			)}`,
-			Verzendkosten_tot_10kg: '€ 6.95',
+			Verzendkosten_tot_10kg: `€ ${this.props.value.shippingCost}`,
 			Totale_order_prijs: `€ ${parseFloat(
 				this.getTotalOrderPrice(this.props.value.orderlist)
-			) + 6.95}`
+			) + this.props.value.shippingCost}`
 		};
 		const emailData = [orderNumber, ...json, totalOrderPrice, sendToAddress];
 

@@ -8,6 +8,8 @@ export class Provider extends Component {
 	state = {
 		orderlist: [],
 
+		shippingCost: 6.95,
+
 		dispatch: action => this.setState(state => reducer(state, action)),
 
 		products: {

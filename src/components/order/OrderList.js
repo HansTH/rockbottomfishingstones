@@ -13,12 +13,14 @@ import {
 } from '../../contextAPI/types';
 
 export default function OrderList() {
-	const totalOrderPrice = orderslist => {
+	// const shippingCost = 6.95;
+
+	const totalOrderPrice = (orderslist, shippingCost) => {
 		const total = orderslist.reduce(
 			(price, item) => price + item.totalItemPrice,
 			0
 		);
-		return parseFloat(total + 6.95).toFixed(2);
+		return parseFloat(total + shippingCost).toFixed(2);
 	};
 
 	const deleteOrder = (id, dispatch) => {
@@ -79,7 +81,7 @@ export default function OrderList() {
 									</td>
 
 									<td style={{ textAlign: 'center' }}>
-										<h3>€{order.totalItemPrice.toFixed(2)}</h3>
+										<h3>€ {order.totalItemPrice.toFixed(2)}</h3>
 									</td>
 
 									<td style={{ textAlign: 'center' }}>
@@ -112,17 +114,19 @@ export default function OrderList() {
 									</div>
 								</td>
 								<td style={{ textAlign: 'center' }}>
-									<h3>€6.95</h3>
+									<h3>{`€ ${value.shippingCost}`}</h3>
 								</td>
 							</tr>
 							<tr>
 								<td />
 								<td />
 								<td style={{ textAlign: 'center' }}>
-									<h2>Total:</h2>
+									<h2>Totale kosten:</h2>
 								</td>
 								<td style={{ textAlign: 'center' }}>
-									<h2>€{totalOrderPrice(value.orderlist)}</h2>
+									<h2>
+										€ {totalOrderPrice(value.orderlist, value.shippingCost)}
+									</h2>
 								</td>
 							</tr>
 						</OrderlistBottomBody>
@@ -182,7 +186,7 @@ const OrderlistHead = styled.tbody`
 		width: 120px;
 		${maxWidth.small`
     display: none;
-       width: 0;
+    width: 0;
     `};
 	}
 `;
@@ -203,7 +207,7 @@ const OrderlistBody = styled.tbody`
 
 		${maxWidth.small`
     display: none;
-       width: 0;
+    width: 0;
     `};
 	}
 
