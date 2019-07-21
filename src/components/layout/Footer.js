@@ -20,8 +20,8 @@ export default function Footer() {
 				</Scroll>
 			</>
 			<>
-				<FooterLink href='http://www.hansterhorst.com/'>
-					Website gemaakt door hansterhorst.com • {new Date().getFullYear()}{' '}
+				<FooterLink href='https://www.hansterhorst.com/'>
+					Website gemaakt door hansterhorst.com • {new Date().getFullYear()}
 				</FooterLink>
 			</>
 		</FooterContainer>
