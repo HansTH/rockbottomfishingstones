@@ -40,10 +40,10 @@ export default function Order({ history }) {
 								</GlobalContainer>
 							</OrderInfo>
 							<OrderWrapper>
-								<Stones />
-								<TopStones />
-								<PluginWartel />
-								<LeaderLink />
+								<Stones value={value} />
+								<TopStones value={value} />
+								<PluginWartel value={value} />
+								<LeaderLink value={value} />
 							</OrderWrapper>
 							{/* history = browserhistory */}
 							<OrderForm value={value} history={history} />
