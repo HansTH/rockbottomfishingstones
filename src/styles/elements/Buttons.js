@@ -13,6 +13,7 @@ export const RegularButton = styled.a`
 	text-align: ${({ centerText }) => (centerText ? 'center' : 'left')};
 	background-color: transparent;
 	outline: none;
+	position: relative;
 
 	:hover {
 		background-color: ${ThemeColors.green};
