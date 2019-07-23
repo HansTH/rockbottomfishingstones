@@ -32,7 +32,7 @@ export default function OrderButton({ value, product }) {
 					// onClick={() => this.addToOrderlist(product, value.dispatch)}
 					href='#order'
 				>
-					Toegevoed aan de bestelling
+					Toegevoegd aan de bestelling
 					<Notification>{getQuantity(product, value.orderlist)}</Notification>
 				</PrimaryButton>
 			) : (

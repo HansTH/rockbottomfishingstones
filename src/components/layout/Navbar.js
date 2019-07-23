@@ -5,9 +5,10 @@ import Scroll from '../global/Scroll';
 import {
 	RegularButton,
 	ThemeColors,
-	NavLinkButton
+	NavLinkButton,
+	Notification
 } from '../../styles/elements';
-import { maxWidth, fixed, absolute } from '../../styles/utils';
+import { maxWidth, fixed } from '../../styles/utils';
 import navbarLogo from '../../assets/navbar-logo.png';
 import MenubarButton from './sidebar/MenubarButtons';
 import { HomeIcon, ShoppingIcon } from '../../assets/svg';
@@ -43,6 +44,7 @@ export default class Navbar extends Component {
 	render() {
 		const { toogleSidebarOpen, navLinks } = this.props;
 		const { hasScrolled, navBarFixed } = this.state;
+
 		return (
 			<NavbarContainer
 				id='navbar'
@@ -68,6 +70,9 @@ export default class Navbar extends Component {
 									<Scroll type='id' element={navLink.id} offset={1}>
 										<RegularButton centerText to='/'>
 											{navLink.title}
+											{navLink.value && navLink.value.length > 0 ? (
+												<Notification>{navLink.value.length}</Notification>
+											) : null}
 										</RegularButton>
 									</Scroll>
 								</li>
@@ -85,7 +90,7 @@ export default class Navbar extends Component {
 							</li>
 						</Scrollspy>
 					</NavbarLinks>
-					<MenubarButton click={toogleSidebarOpen} />
+					<MenubarButton click={toogleSidebarOpen} notification={navLinks} />
 				</NavbarWrapper>
 			</NavbarContainer>
 		);
@@ -147,6 +152,7 @@ const NavbarTitle = styled.a`
 const NavbarLinks = styled.div`
 	display: flex;
 	align-items: center;
+	position: relative;
 
 	ul {
 		display: flex;

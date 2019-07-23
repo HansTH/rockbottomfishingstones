@@ -1,12 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
 import { minWidth } from '../../../styles/utils';
-import { ThemeColors } from '../../../styles/elements';
+import { ThemeColors, Notification } from '../../../styles/elements';
 
 export default function MenubarButton(props) {
-	const { click } = props;
+	const { click, notification } = props;
 	return (
 		<MenubarContainer onClick={click}>
+			{notification.map((item, index) =>
+				item.value && item.value.length > 0 ? (
+					<Notification key={index}>{item.value.length}</Notification>
+				) : null
+			)}
 			<MenubarLine />
 			<MenubarLine />
 			<MenubarLine />
@@ -22,6 +27,7 @@ const MenubarContainer = styled.div`
 	height: 30px;
 	width: 25px;
 	cursor: pointer;
+	position: relative;
 
 	${minWidth.medium`
     display: none

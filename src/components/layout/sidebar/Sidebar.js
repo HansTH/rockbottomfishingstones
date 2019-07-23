@@ -6,7 +6,8 @@ import {
 	ThemeColors,
 	ShadowColor,
 	RegularButton,
-	NavLinkButton
+	NavLinkButton,
+	Notification
 } from '../../../styles/elements';
 import { minWidth, maxWidth, fixed } from '../../../styles/utils';
 
@@ -25,6 +26,9 @@ export default function Sidebar(props) {
 							<Scroll type='id' element={navLink.id} offset={1}>
 								<RegularButton centerText={false} to='/'>
 									{navLink.title}
+									{navLink.value && navLink.value.length > 0 ? (
+										<Notification>{navLink.value.length}</Notification>
+									) : null}
 								</RegularButton>
 							</Scroll>
 						</li>

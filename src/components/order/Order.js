@@ -13,6 +13,13 @@ export default function Order({ history }) {
 	return (
 		<Consumer>
 			{value => {
+				const navLinks = [
+					{ title: 'Stenen', id: 'stones' },
+					{ title: 'Top Steentjes', id: 'topstones' },
+					{ title: 'Plugin Wartels', id: 'pluginWartel' },
+					{ title: 'Leader Link', id: 'leaderLink' },
+					{ title: 'Bestelling', id: 'order', value: value.orderlist }
+				];
 				return (
 					<Layout navBarFixed={true} navLinks={navLinks}>
 						<OrderContainer>
@@ -73,11 +80,3 @@ const OrderWrapper = styled.div`
 	align-items: center;
 	width: 100vw;
 `;
-
-const navLinks = [
-	{ title: 'Stenen', id: 'stones' },
-	{ title: 'Top Steentjes', id: 'topstones' },
-	{ title: 'Plugin Wartels', id: 'pluginWartel' },
-	{ title: 'Leader Link', id: 'leaderLink' },
-	{ title: 'Bestelling', id: 'order' }
-];
