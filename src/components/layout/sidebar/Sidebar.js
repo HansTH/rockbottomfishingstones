@@ -12,8 +12,7 @@ import {
 import { minWidth, maxWidth, fixed } from '../../../styles/utils';
 
 export default function Sidebar(props) {
-	const { sidebarClose, show, navLinks, navBarFixed } = props;
-
+	const { sidebarClose, show, navLinks, navBarFixed, value } = props;
 	return (
 		<SidebarContainer show={show}>
 			<SidebarNavlinks>
@@ -37,6 +36,9 @@ export default function Sidebar(props) {
 						{!navBarFixed ? (
 							<NavLinkButton activeClassName='isActiv' to='/order'>
 								Bestellen
+								{value && value.length > 0 ? (
+									<Notification>{value.length}</Notification>
+								) : null}
 							</NavLinkButton>
 						) : (
 							<NavLinkButton activeClassName='isActiv' to='/'>

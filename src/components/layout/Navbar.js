@@ -42,7 +42,7 @@ export default class Navbar extends Component {
 	};
 
 	render() {
-		const { toogleSidebarOpen, navLinks } = this.props;
+		const { toogleSidebarOpen, navLinks, value } = this.props;
 		const { hasScrolled, navBarFixed } = this.state;
 
 		return (
@@ -90,7 +90,7 @@ export default class Navbar extends Component {
 							</li>
 						</Scrollspy>
 					</NavbarLinks>
-					<MenubarButton click={toogleSidebarOpen} notification={navLinks} />
+					<MenubarButton click={toogleSidebarOpen} value={value} />
 				</NavbarWrapper>
 			</NavbarContainer>
 		);

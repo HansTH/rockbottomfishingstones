@@ -24,6 +24,7 @@ export default class Layout extends Component {
 
 	render() {
 		const { sideBarOpen, navBarFixed } = this.state;
+		const { value } = this.props;
 		return (
 			<LayoutContainer>
 				<Navbar
@@ -31,6 +32,7 @@ export default class Layout extends Component {
 					sideBarOpen={sideBarOpen}
 					navBarFixed={navBarFixed}
 					navLinks={this.props.navLinks}
+					value={value}
 				/>
 				{this.props.children}
 				{/* <ChildrenContainer>{this.props.children}</ChildrenContainer> */}
@@ -41,6 +43,7 @@ export default class Layout extends Component {
 					show={sideBarOpen}
 					navBarFixed={navBarFixed}
 					navLinks={this.props.navLinks}
+					value={value}
 				/>
 			</LayoutContainer>
 		);

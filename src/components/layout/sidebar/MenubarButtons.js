@@ -4,14 +4,12 @@ import { minWidth } from '../../../styles/utils';
 import { ThemeColors, Notification } from '../../../styles/elements';
 
 export default function MenubarButton(props) {
-	const { click, notification } = props;
+	const { click, value } = props;
 	return (
 		<MenubarContainer onClick={click}>
-			{notification.map((item, index) =>
-				item.value && item.value.length > 0 ? (
-					<Notification key={index}>{item.value.length}</Notification>
-				) : null
-			)}
+			{value && value.length > 0 ? (
+				<Notification>{value.length}</Notification>
+			) : null}
 			<MenubarLine />
 			<MenubarLine />
 			<MenubarLine />

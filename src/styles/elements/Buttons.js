@@ -46,7 +46,7 @@ export const NavLinkButton = styled(NavLink)`
 	text-align: center;
 	background-color: ${({ color }) => color};
 	outline: none;
-
+	position: relative;
 	:hover {
 		background-color: ${ThemeColors.green};
 	}
