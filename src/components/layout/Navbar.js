@@ -81,6 +81,9 @@ export default class Navbar extends Component {
 								{!navBarFixed ? (
 									<NavLinkButton activeClassName='isActiv' to='/order'>
 										<ShoppingIcon />
+										{value && value.length > 0 ? (
+											<Notification>{value.length}</Notification>
+										) : null}
 									</NavLinkButton>
 								) : (
 									<NavLinkButton activeClassName='isActiv' to='/'>
