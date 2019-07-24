@@ -21,7 +21,11 @@ export default function Order({ history }) {
 					{ title: 'Bestelling', id: 'order', value: value.orderlist }
 				];
 				return (
-					<Layout navBarFixed={true} navLinks={navLinks}>
+					<Layout
+						navBarFixed={true}
+						navLinks={navLinks}
+						value={value.orderlist}
+					>
 						<OrderContainer>
 							<OrderInfo>
 								<GlobalContainer>
