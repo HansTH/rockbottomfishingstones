@@ -31,6 +31,7 @@ export default function OrderButton({ value, product }) {
 					block='true'
 					// onClick={() => this.addToOrderlist(product, value.dispatch)}
 					href='#order'
+					hover={false}
 				>
 					Toegevoegd aan de bestelling
 					<Notification>{getQuantity(product, value.orderlist)}</Notification>

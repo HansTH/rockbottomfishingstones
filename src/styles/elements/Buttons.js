@@ -24,7 +24,7 @@ export const PrimaryButton = styled(RegularButton)`
 	background-color: ${ThemeColors.green};
 
 	:hover {
-		background-color: ${ThemeColors.black};
+		background-color: ${({ hover }) => (hover ? '#333' : '#7ab336')};
 	}
 `;
 
