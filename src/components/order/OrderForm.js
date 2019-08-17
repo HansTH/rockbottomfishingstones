@@ -193,9 +193,9 @@ export default class OrderForm extends Component {
 			to_name: 'rockbottomfishingstones.com',
 			message_html: htmlMessage,
 			checked_terms: this.state.terms,
-			total_order_price: `€${this.getTotalOrderPrice(
-				this.props.value.orderlist
-			)}`
+			total_order_price: `€ ${parseFloat(
+				this.getTotalOrderPrice(this.props.value.orderlist)
+			) + this.props.value.shippingCost}`
 		};
 
 		emailjs
