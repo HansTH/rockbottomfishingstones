@@ -18,7 +18,7 @@ export class Provider extends Component {
 					id: 'RBFSpluginwartel',
 					image:
 						'https://res.cloudinary.com/dtwdioxca/image/upload/v1558766527/rbfs/RBFS-PlugInWartel.jpg',
-					title: 'Plugin Wartels Maat 8',
+					title: 'Plugin Wartels maat 8',
 					price: 2.5,
 					itemQuantity: 10,
 					info:
@@ -42,7 +42,7 @@ export class Provider extends Component {
 					id: 'RBFStopstone20',
 					image:
 						'https://res.cloudinary.com/dtwdioxca/image/upload/v1558766528/rbfs/RBFS-Topstones-small.jpg',
-					title: 'Top steentjes, Klein 20 gram',
+					title: 'Top steentjes, klein 20 - 30 gram',
 					price: 3.0,
 					itemQuantity: 3,
 					info:
@@ -52,7 +52,7 @@ export class Provider extends Component {
 					id: 'RBFStopstone40',
 					image:
 						'https://res.cloudinary.com/dtwdioxca/image/upload/v1558766528/rbfs/RBFS-Topstones-large.jpg',
-					title: 'Top steentjes, groot 40 gram',
+					title: 'Top steentjes, groot 31 - 40 gram',
 					price: 3.0,
 					itemQuantity: 3,
 					info:
