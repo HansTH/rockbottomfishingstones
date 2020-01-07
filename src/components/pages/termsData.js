@@ -1,4 +1,6 @@
 import React from 'react';
+import { Consumer } from '../../contextAPI/context';
+
 const termsData = [
 	{
 		id: 1,
@@ -83,32 +85,39 @@ const termsData = [
 		id: 2,
 		header: 'Artikel 2 - Identiteit van de ondernemer',
 		content: (
-			<ol id='art02'>
-				<li>
-					<strong>Naam onderneming: </strong>Rockbottom Fishingstones
-				</li>
-				<li>
-					<strong>Adres: </strong>Zaagmolenweg 5
-				</li>
-				<li>
-					<strong>Postcode: </strong>7491 BS
-				</li>
-				<li>
-					<strong>Woonplaats: </strong>Delden
-				</li>
-				<li>
-					<strong>E-mailadres: </strong>
-					<a href='mailto:info@rockbottomfishingstones.com'>
-						info@rockbottomfishingstones.com
-					</a>
-				</li>
-				<li>
-					<strong>KvK-nummer:</strong> 74407287
-				</li>
-				<li>
-					<strong>Btw-identificatienummer:</strong> NL137920179B01
-				</li>
-			</ol>
+			<Consumer>
+				{value => {
+					return (
+						<ol id='art02'>
+							<li>
+								<strong>Naam onderneming: </strong>Rockbottom Fishingstones
+							</li>
+							<li>
+								<strong>Adres: </strong>Zaagmolenweg 5
+							</li>
+							<li>
+								<strong>Postcode: </strong>7491 BS
+							</li>
+							<li>
+								<strong>Woonplaats: </strong>Delden
+							</li>
+							<li>
+								<strong>E-mailadres: </strong>
+								<a href='mailto:info@rockbottomfishingstones.com'>
+									info@rockbottomfishingstones.com
+								</a>
+							</li>
+							<li>
+								<strong>KvK-nummer:</strong> 74407287
+							</li>
+							<li>
+								<strong>Btw-identificatienummer:</strong>
+								{value.btwID}
+							</li>
+						</ol>
+					);
+				}}
+			</Consumer>
 		)
 	},
 	{

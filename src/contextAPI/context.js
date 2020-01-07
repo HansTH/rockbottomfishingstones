@@ -9,6 +9,7 @@ export class Provider extends Component {
 		orderlist: [],
 
 		shippingCost: 6.95,
+		btwID: 'NL001655244B40',
 
 		dispatch: action => this.setState(state => reducer(state, action)),
 
