@@ -110,7 +110,7 @@ export default class Contact extends Component {
 								label='Naam'
 								type='text'
 								name='name'
-								placeholder='* Uw naam'
+								placeholder='* Naam'
 								onChange={this.handleChange}
 								value={this.state.name}
 								isRequired={true}
@@ -119,7 +119,7 @@ export default class Contact extends Component {
 								label='Email'
 								type='email'
 								name='email'
-								placeholder='* Uw email'
+								placeholder='* Email'
 								onChange={this.handleChange}
 								value={this.state.email}
 								isRequired={true}
@@ -138,7 +138,7 @@ export default class Contact extends Component {
 								name='message'
 								cols='30'
 								rows='10'
-								placeholder='* Uw bericht'
+								placeholder='* Bericht'
 								onChange={this.handleChange}
 								value={this.state.message}
 								isRequired={true}

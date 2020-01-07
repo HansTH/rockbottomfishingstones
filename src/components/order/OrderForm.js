@@ -252,7 +252,7 @@ export default class OrderForm extends Component {
 											label='Naam'
 											type='text'
 											name='name'
-											placeholder='* Uw naam'
+											placeholder='* Naam'
 											isRequired={true}
 											value={this.state.name}
 											onChange={this.handleChange}
@@ -261,7 +261,7 @@ export default class OrderForm extends Component {
 											label='Email'
 											type='email'
 											name='email'
-											placeholder='* Uw email'
+											placeholder='* Email'
 											isRequired={true}
 											value={this.state.email}
 											onChange={this.handleChange}
@@ -270,7 +270,7 @@ export default class OrderForm extends Component {
 											label='Telefoon'
 											type='tel'
 											name='mobile'
-											placeholder='* Uw telefoon nummer'
+											placeholder='* Telefoon nummer'
 											isRequired={true}
 											value={this.state.mobile}
 											onChange={this.handleChange}
@@ -280,7 +280,7 @@ export default class OrderForm extends Component {
 												label='Verzend adres'
 												type='text'
 												name='streetname'
-												placeholder='* Uw straatnaam'
+												placeholder='* Straatnaam'
 												isRequired={true}
 												value={this.state.streetname}
 												onChange={this.handleChange}
@@ -290,7 +290,7 @@ export default class OrderForm extends Component {
 											<TextInputField
 												type='text'
 												name='streetnumber'
-												placeholder='* Uw straatnummer'
+												placeholder='* Huisnummer'
 												isRequired={true}
 												value={this.state.streetnumber}
 												onChange={this.handleChange}
@@ -301,7 +301,7 @@ export default class OrderForm extends Component {
 											<TextInputField
 												type='text'
 												name='zipcode'
-												placeholder='* Uw postcode'
+												placeholder='* Postcode'
 												isRequired={true}
 												value={this.state.zipcode}
 												onChange={this.handleChange}
@@ -311,7 +311,7 @@ export default class OrderForm extends Component {
 											<TextInputField
 												type='text'
 												name='city'
-												placeholder='* Uw woonplaats'
+												placeholder='* Woonplaats'
 												isRequired={true}
 												value={this.state.city}
 												onChange={this.handleChange}
